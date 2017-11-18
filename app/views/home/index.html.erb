@@ -1,0 +1,58 @@
+<%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<p class="example"></p>
+
+<form>
+	<label for="city">City:</label>
+	<input name="city" type="text" class="searchCity" />
+	<label for="state">State:</label>
+	<input name="state" type="text" class="searchState" />
+	<label for="category">Category:</label>
+	<input name="category" type="text" class="searchCategory" />
+	<label for="start_date">Date:</label>
+	<input name="start_date" type="text" class="searchDate" />
+	<input type="submit" value="Search" id="submit" />
+</form>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value);
+  })
+  function eventSearch (city, state, category, start_date) {
+	axios({
+	method: 'get',
+	url: 'http://api.amp.active.com/v2/search/?',
+    params: {
+      city: city,
+      state: state,
+      category: category,
+      start_date: start_date,
+      api_key: "f22xnqt8nbeqk9dutzr86pk9",
+      exists: "assetName",
+      exists: "activityStartDate",
+      exists: "place.addressLine1Txt",
+      exists: "place.cityName",
+      exists: "place.stateProvinceCode",
+      exists: "assetDescriptions"
+    }
+}).then(response => {
+    console.log(response.data.results);
+ //    let description = row.assetDescriptions[0].description;
+	// let name = row.assetName;
+	// let end = row.activityEndDate;
+	// let start = row.activityStartDate;
+	// let image = row.assetImages[0].imageUrlAdr;
+	// let topic = row.assetTopics[0].topic.topicName;
+	// let placeStreet = row.place.addressLine1Txt;
+	// let placeCity = row.place.cityName;
+	// let placeState = row.place.stateProvinceCode;
+	response.data.results.forEach( row => {
+		console.log(row);
+	document.querySelector(".example").innerHTML += "<p>" + "<h1>" + row.assetName + "</h1>" + row.assetDescriptions[0].description + row.activityStartDate + row.place.addressLine1Txt + row.place.cityName; + row.place.stateProvinceCode + "</p>";
+})
+});
+}
+});
+</script>
