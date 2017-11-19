@@ -1,5 +1,4 @@
-<%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<p class="example"></p>
+<div class="eventSearchList"></div>
 
 <form>
 	<label for="city">City:</label>
@@ -15,6 +14,7 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -39,20 +39,80 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 }).then(response => {
     console.log(response.data.results);
- //    let description = row.assetDescriptions[0].description;
-	// let name = row.assetName;
-	// let end = row.activityEndDate;
-	// let start = row.activityStartDate;
-	// let image = row.assetImages[0].imageUrlAdr;
-	// let topic = row.assetTopics[0].topic.topicName;
-	// let placeStreet = row.place.addressLine1Txt;
-	// let placeCity = row.place.cityName;
-	// let placeState = row.place.stateProvinceCode;
 	response.data.results.forEach( row => {
-		console.log(row);
-	document.querySelector(".example").innerHTML += "<p>" + "<h1>" + row.assetName + "</h1>" + row.assetDescriptions[0].description + row.activityStartDate + row.place.addressLine1Txt + row.place.cityName; + row.place.stateProvinceCode + "</p>";
+	document.querySelector(".eventSearchList").innerHTML += 
+		"<a><h1 class='name'>" + row.assetName + "</h1></a>" +
+		"<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
+		"<p class='date'>" + row.activityStartDate + "</p>" +
+		"<p class='street'>" + row.place.addressLine1Txt + "</p>" +
+		"<p class='city'>" + row.place.cityName + "</p>" +
+		"<p class='state'>" + row.place.stateProvinceCode + "</p>";
+
+	for(var i=0; i<response.data.results.length; i++) {
+
+	var newForm = document.createElement("FORM");
+	newForm.setAttribute("class", "event_form");
+	newForm.setAttribute("action", "/events");
+	newForm.setAttribute("method", "post");
+	document.body.appendChild(newForm);
+
+    var newInput = document.createElement("INPUT");
+    newInput.setAttribute("name", "event[name]");
+    newInput.setAttribute("class", "event_name");
+    newForm.appendChild(newInput);
+
+    var newInput2 = document.createElement("INPUT");
+    newInput2.setAttribute("name", "event[description]");
+    newInput2.setAttribute("class", "description");
+    newForm.appendChild(newInput2);
+
+    var newInput3 = document.createElement("INPUT");
+    newInput3.setAttribute("name", "event[start_date]");
+    newInput3.setAttribute("class", "start_date");
+    newForm.appendChild(newInput3);
+
+    var newInput4 = document.createElement("INPUT");
+    newInput4.setAttribute("name", "event[street]");
+    newInput4.setAttribute("class", "street");
+    newForm.appendChild(newInput4);
+
+    var newInput5 = document.createElement("INPUT");
+    newInput5.setAttribute("name", "event[city]");
+    newInput5.setAttribute("class", "city");
+    newForm.appendChild(newInput5);
+
+    var newInput6 = document.createElement("INPUT");
+    newInput6.setAttribute("name", "event[state]");
+    newInput6.setAttribute("class", "state");
+    newForm.appendChild(newInput6);
+
+    document.querySelector(".event_name").value = row.assetName;
+	document.querySelector(".description").value = row.assetDescriptions[0].description;
+	document.querySelector(".start_date").value = row.activityStartDate;
+	document.querySelector(".street").value = row.place.addressLine1Txt;
+	document.querySelector(".city").value = row.place.cityName;
+	document.querySelector(".state").value = row.place.stateProvinceCode;
+
+	newForm.submit();
+
+	function formSubmit() {
+		document.querySelector(".event_form").submit();
+	}
+
+    setTimeout(formSubmit, 10);
+}
 })
 });
 }
 });
 </script>
+
+<!-- <form class ="event_form" action="/events" method="post">
+	<input name=event[name] class="event_name"></input>
+	<input name=event[description] class="description"></input>
+	<input name=event[start_date] class="start_date"></input>
+	<input name=event[street] class="street"></input>
+	<input name=event[city] class="city"></input>
+	<input name=event[state] class="state"></input>
+	<input type="submit" />
+</form> -->
