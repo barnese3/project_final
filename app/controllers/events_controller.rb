@@ -30,6 +30,7 @@ class EventsController < ApplicationController
       if @event.save
         format.html
         format.json
+        format.js
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
