@@ -40,5 +40,32 @@
   <%= mail_to @user.email, "Email" %>
 </p>
 
+<p>
+  <strong>Upcoming Events</strong>
+  <% @user.user_events.each do |userevent| %>
+    <% if userevent.status == "upcoming" %>
+      <p><%= userevent.event.name %> <%= userevent.status %></p>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Past Events</strong>
+  <% @user.user_events.each do |userevent| %>
+    <% if userevent.status == "past" %>
+      <p><%= userevent.event.name %> <%= userevent.status %></p>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Wishlist Events</strong>
+  <% @user.user_events.each do |userevent| %>
+    <% if userevent.status == "wishlist" %>
+      <p><%= userevent.event.name %> <%= userevent.status %></p>
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

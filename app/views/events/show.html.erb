@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @event.status %>
-</p>
-
-<p>
   <strong>Description:</strong>
   <%= @event.description %>
 </p>
@@ -49,6 +44,27 @@
   <strong>State:</strong>
   <%= @event.state %>
 </p>
+
+<%= form_with(model: UserEvent.new, local: true) do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :event_id, value: @event.id %>
+    <%= form.hidden_field :status, value: "upcoming" %>
+    <%= form.submit "Upcoming" %>
+<% end %>
+
+<%= form_with(model: UserEvent.new, local: true) do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :event_id, value: @event.id %>
+    <%= form.hidden_field :status, value: "past" %>
+    <%= form.submit "Past" %>
+<% end %>
+
+<%= form_with(model: UserEvent.new, local: true) do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :event_id, value: @event.id %>
+    <%= form.hidden_field :status, value: "wishlist" %>
+    <%= form.submit "Wishlist" %>
+<% end %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

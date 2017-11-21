@@ -28,8 +28,8 @@ class UserEventsController < ApplicationController
 
     respond_to do |format|
       if @user_event.save
-        format.html { redirect_to @user_event, notice: 'User event was successfully created.' }
-        format.json { render :show, status: :created, location: @user_event }
+        format.html
+        format.json
       else
         format.html { render :new }
         format.json { render json: @user_event.errors, status: :unprocessable_entity }
@@ -69,6 +69,6 @@ class UserEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_event_params
-      params.require(:user_event).permit(:references, :references)
+      params.require(:user_event).permit(:user_id, :event_id, :status)
     end
 end

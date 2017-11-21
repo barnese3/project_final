@@ -12,13 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :references %>
-    <%= form.text_field :references, id: :user_event_references %>
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
   </div>
 
   <div class="field">
-    <%= form.label :references %>
-    <%= form.text_field :references, id: :user_event_references %>
+    <%= form.label :event_id %>
+    <%= form.text_field :event_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
   </div>
 
   <div class="actions">

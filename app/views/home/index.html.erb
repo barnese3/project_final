@@ -6,11 +6,13 @@ function topFunction() {
 </script>
 
 <div class="eventSearchList"></div>
+<div class="links"></div>
 <h1 class="next"></h1>
 <h1 class="next2"></h1>
 <h1 class="next3"></h1>
 <h1 class="next4"></h1>
 <button class="backToTop" onclick="topFunction()">Back to Top</button>
+<h1 class="noMoreResults"></h1>
 
 <!-- form for user to search for events by city, state, category, and date -->
 <form>
@@ -56,7 +58,10 @@ document.addEventListener("DOMContentLoaded", function() {
       exists: "assetDescriptions"
     }
 }).then(response => {
-  console.log(response.data.results);
+  console.log(response.data.results.length);
+  if (response.data.results.length == 0) {
+    document.querySelector(".noMoreResults").innerHTML = "End of Results";
+  } else {
   response.data.results.forEach( row => {
 
 // for each row, a new event form is created along with its inputs/values
@@ -136,9 +141,12 @@ $.ajax({
   }
 });
 
+// $(document).ajaxComplete(function() {
+//   document.querySelector(".links").innerHTML = '<a href="events/params[:id]">Details</a>';
+// });
+
 //after the event is saved to the datebase, the DOM is updated with events returned from the search
-  document.querySelector(".eventSearchList").innerHTML += 
-    "<%= escape_javascript link_to 'Learn More', @event %>" +
+  document.querySelector(".eventSearchList").innerHTML +=
     "<h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
     "<p class='date'>" + row.activityStartDate + "</p>" +
@@ -146,6 +154,7 @@ $.ajax({
     "<p class='city'>" + row.place.cityName + "</p>" +
     "<p class='state'>" + row.place.stateProvinceCode + "</p>";
 })
+}
 });
 }
 
