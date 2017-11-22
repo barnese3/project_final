@@ -27,7 +27,14 @@
 
 <p>
   <strong>Start date:</strong>
-  <%= @event.start_date %>
+  <%= @event.start_date.to_date %>
+  <%= Date.today %>
+  <% if @event.start_date.to_date < Date.today %>
+    <p>past</p>
+  <% end %>
+  <% if @event.start_date.to_date > Date.today %>
+    <p>upcoming</p>
+  <% end %>
 </p>
 
 <p>

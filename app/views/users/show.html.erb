@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="eventBarContainMain">
+  <div class="eventBarContain">
+    <div class="eventBar"></div>
+  </div>
+</div>
 
 <p>
   <strong>First name:</strong>
@@ -43,6 +47,9 @@
 <p>
   <strong>Upcoming Events</strong>
   <% @user.user_events.each do |userevent| %>
+    <% if userevent.event.start_date.to_date < Date.today && userevent.status == "upcoming" %>
+      <% userevent.status = 1 %>
+    <% end %>
     <% if userevent.status == "upcoming" %>
       <p><%= userevent.event.name %> <%= userevent.status %></p>
     <% end %>
@@ -51,8 +58,10 @@
 
 <p>
   <strong>Past Events</strong>
+  <% pastEvents = Array.new %>
   <% @user.user_events.each do |userevent| %>
     <% if userevent.status == "past" %>
+      <% pastEvents.push(userevent) %>
       <p><%= userevent.event.name %> <%= userevent.status %></p>
     <% end %>
   <% end %>
@@ -69,3 +78,24 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+<script>
+  var userevents = <%= pastEvents.length %>;
+  var eventbar = document.querySelector(".eventBar");
+  eventbar.innerHTML = "You have attended " + userevents + " events";
+  if (userevents == 0) {
+    eventbar.style.width = "0%";
+  }
+  if (userevents > 0 && userevents <= 5) {
+    eventbar.style.width = "25%";
+  }
+  if (userevents > 5 && userevents <= 10) {
+    eventbar.style.width = "50%";
+  }
+  if (userevents > 10 && userevents <= 15) {
+    eventbar.style.width = "75%";
+  }
+  if (userevents > 15 && userevents <= 20) {
+    eventbar.style.width = "100%";
+  }
+</script>
