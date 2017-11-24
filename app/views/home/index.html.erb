@@ -11,7 +11,6 @@ function topFunction() {
 </script>
 
 <div class="eventSearchList"></div>
-<div class="links"></div>
 <h1 class="next"></h1>
 <h1 class="next2"></h1>
 <h1 class="next3"></h1>
@@ -74,11 +73,12 @@ document.addEventListener("DOMContentLoaded", function() {
       topic: category,
       start_date: start_date,
       current_page: current_page,
-      per_page: 5,
+      per_page: 6,
       api_key: "f22xnqt8nbeqk9dutzr86pk9",
       exists: "assetDescriptions"
     }
 }).then(response => {
+  // window.location.href = "/eventsearch";
   document.querySelector("video").style.display = "none";
   document.querySelector(".landingHeader").style.display = "none";
   document.querySelector(".landingHeaderText").style.display = "none";
@@ -167,44 +167,506 @@ $.ajax({
   }
 });
 
-// $(document).ajaxComplete(function() {
-//   document.querySelector(".links").innerHTML = '<a href="events/params[:id]">Details</a>';
-// });
-
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var options = { day: 'numeric', month: 'short' };
     var date = new Date(row.activityStartDate);
 
     //after the event is saved to the datebase, the DOM is updated with events returned from the search
     document.querySelector(".eventSearchList").innerHTML +=
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
-    // "<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
-    "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p></div>";
-    // "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
-    // "<p class='city'>" + row.place.cityName + "</p>" +
-    // "<p class='state'>" + row.place.stateProvinceCode + "</p>
+    "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
+    "<p class='moreInfo'>More Information</p></div>" +
+    "<div class='singleEventBack' style='display:none'><span class='close'>&times;</span><p class='description'>" + row.assetDescriptions[0].description + "</p>" +
+    "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
+    "<p class='city'>" + row.place.cityName + "</p>" +
+    "<p class='state'>" + row.place.stateProvinceCode + "</p></div>";
 })
+
+
+//when you click on an events "More Info", all events are hidden and the selected events "info" is being displayed
+function displayNone() {
+  for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
+    document.querySelectorAll(".singleEvent")[i].style.display = "none";
+  }
+  document.querySelector(".next").style.display = "none";
+  document.querySelector(".next2").style.display = "none";
+  document.querySelector(".next3").style.display = "none";
+  document.querySelector(".next4").style.display = "none";
+  document.querySelector(".backToTop").style.display = "none";
+}
+
+function displayBlock(index) {
+  document.querySelectorAll(".singleEventBack")[index].style.display = "block";
+}
+
+var selectInfo = document.querySelectorAll(".moreInfo");
+
+if (selectInfo[0]) {
+  selectInfo[0].addEventListener("click", function() {
+    displayNone();
+    displayBlock(0);
+  })
+}
+
+if (selectInfo[1]) {
+  selectInfo[1].addEventListener("click", function() {
+    displayNone();
+    displayBlock(1);
+  })
+}
+
+if (selectInfo[2]) {
+  selectInfo[2].addEventListener("click", function() {
+    displayNone();
+    displayBlock(2);
+  })
+}
+
+if (selectInfo[3]) {
+  selectInfo[3].addEventListener("click", function() {
+    displayNone();
+    displayBlock(3);
+  })
+}
+
+if (selectInfo[4]) {
+  selectInfo[4].addEventListener("click", function() {
+    displayNone();
+    displayBlock(4);
+  })
+}
+
+if (selectInfo[5]) {
+  selectInfo[5].addEventListener("click", function() {
+    displayNone();
+    displayBlock(5);
+  })
+}
+
+if (selectInfo[6]) {
+  selectInfo[6].addEventListener("click", function() {
+    displayNone();
+    displayBlock(6);
+  })
+}
+
+if (selectInfo[7]) {
+  selectInfo[7].addEventListener("click", function() {
+    displayNone();
+    displayBlock(7);
+  })
+}
+
+if (selectInfo[8]) {
+  selectInfo[8].addEventListener("click", function() {
+    displayNone();
+    displayBlock(8);
+  })
+}
+
+if (selectInfo[9]) {
+  selectInfo[9].addEventListener("click", function() {
+    displayNone();
+    displayBlock(9);
+  })
+}
+
+if (selectInfo[10]) {
+  selectInfo[10].addEventListener("click", function() {
+    displayNone();
+    displayBlock(10);
+  })
+}
+
+if (selectInfo[11]) {
+  selectInfo[11].addEventListener("click", function() {
+    displayNone();
+    displayBlock(11);
+  })
+}
+
+if (selectInfo[12]) {
+  selectInfo[12].addEventListener("click", function() {
+    displayNone();
+    displayBlock(12);
+  })
+}
+
+if (selectInfo[13]) {
+  selectInfo[13].addEventListener("click", function() {
+    displayNone();
+    displayBlock(13);
+  })
+}
+
+if (selectInfo[14]) {
+  selectInfo[14].addEventListener("click", function() {
+    displayNone();
+    displayBlock(14);
+  })
+}
+
+if (selectInfo[15]) {
+  selectInfo[15].addEventListener("click", function() {
+    displayNone();
+    displayBlock(15);
+  })
+}
+
+if (selectInfo[16]) {
+  selectInfo[16].addEventListener("click", function() {
+    displayNone();
+    displayBlock(16);
+  })
+}
+
+if (selectInfo[17]) {
+  selectInfo[17].addEventListener("click", function() {
+    displayNone();
+    displayBlock(17);
+  })
+}
+
+if (selectInfo[18]) {
+  selectInfo[18].addEventListener("click", function() {
+    displayNone();
+    displayBlock(18);
+  })
+}
+
+if (selectInfo[19]) {
+  selectInfo[19].addEventListener("click", function() {
+    displayNone();
+    displayBlock(19);
+  })
+}
+
+if (selectInfo[20]) {
+  selectInfo[20].addEventListener("click", function() {
+    displayNone();
+    displayBlock(20);
+  })
+}
+
+if (selectInfo[21]) {
+  selectInfo[21].addEventListener("click", function() {
+    displayNone();
+    displayBlock(21);
+  })
+}
+
+if (selectInfo[22]) {
+  selectInfo[22].addEventListener("click", function() {
+    displayNone();
+    displayBlock(22);
+  })
+}
+
+if (selectInfo[23]) {
+  selectInfo[23].addEventListener("click", function() {
+    displayNone();
+    displayBlock(23);
+  })
+}
+
+if (selectInfo[24]) {
+  selectInfo[24].addEventListener("click", function() {
+    displayNone();
+    displayBlock(24);
+  })
+}
+
+if (selectInfo[25]) {
+  selectInfo[25].addEventListener("click", function() {
+    displayNone();
+    displayBlock(25);
+  })
+}
+
+if (selectInfo[26]) {
+  selectInfo[26].addEventListener("click", function() {
+    displayNone();
+    displayBlock(26);
+  })
+}
+
+if (selectInfo[27]) {
+  selectInfo[27].addEventListener("click", function() {
+    displayNone();
+    displayBlock(27);
+  })
+}
+
+if (selectInfo[28]) {
+  selectInfo[28].addEventListener("click", function() {
+    displayNone();
+    displayBlock(28);
+  })
+}
+
+if (selectInfo[29]) {
+  selectInfo[29].addEventListener("click", function() {
+    displayNone();
+    displayBlock(29);
+  })
+}
+
+
+
+//while the info is being diaplyed, if you select close, all events are being shown again and the info is being hidden
+function displayInline() {
+  for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
+    document.querySelectorAll(".singleEvent")[i].style.display = "inline-block";
+    document.querySelector(".next").style.display = "block";
+    document.querySelector(".next2").style.display = "block";
+    document.querySelector(".next3").style.display = "block";
+    document.querySelector(".next4").style.display = "block";
+    document.querySelector(".backToTop").style.display = "block";
+  }
+}
+
+function displayNoneBack(index) {
+  document.querySelectorAll(".singleEventBack")[index].style.display = "none";
+}
+
+var selectClose = document.querySelectorAll(".close");
+
+if (selectClose[0]) {
+  selectClose[0].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(0);
+  })
+}
+
+if (selectClose[1]) {
+  selectClose[1].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(1);
+  })
+}
+
+if (selectClose[2]) {
+  selectClose[2].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(2);
+  })
+}
+
+if (selectClose[3]) {
+  selectClose[3].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(3);
+  })
+}
+
+if (selectClose[4]) {
+  selectClose[4].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(4);
+  })
+}
+
+if (selectClose[5]) {
+  selectClose[5].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(5);
+  })
+}
+
+if (selectClose[6]) {
+  selectClose[6].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(6);
+  })
+}
+
+if (selectClose[7]) {
+  selectClose[7].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(7);
+  })
+}
+
+if (selectClose[8]) {
+  selectClose[8].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(8);
+  })
+}
+
+if (selectClose[9]) {
+  selectClose[9].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(9);
+  })
+}
+
+if (selectClose[10]) {
+  selectClose[10].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(10);
+  })
+}
+
+if (selectClose[11]) {
+  selectClose[11].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(11);
+  })
+}
+
+if (selectClose[12]) {
+  selectClose[12].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(12);
+  })
+}
+
+if (selectClose[13]) {
+  selectClose[13].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(13);
+  })
+}
+
+if (selectClose[14]) {
+  selectClose[14].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(14);
+  })
+}
+
+if (selectClose[15]) {
+  selectClose[15].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(15);
+  })
+}
+
+if (selectClose[16]) {
+  selectClose[16].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(16);
+  })
+}
+
+if (selectClose[17]) {
+  selectClose[17].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(17);
+  })
+}
+
+if (selectClose[18]) {
+  selectClose[18].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(18);
+  })
+}
+
+if (selectClose[19]) {
+  selectClose[19].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(19);
+  })
+}
+
+if (selectClose[20]) {
+  selectClose[20].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(20);
+  })
+}
+
+if (selectClose[21]) {
+  selectClose[21].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(21);
+  })
+}
+
+if (selectClose[22]) {
+  selectClose[22].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(22);
+  })
+}
+
+if (selectClose[23]) {
+  selectClose[23].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(23);
+  })
+}
+
+if (selectClose[24]) {
+  selectClose[24].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(24);
+  })
+}
+
+if (selectClose[25]) {
+  selectClose[25].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(25);
+  })
+}
+
+if (selectClose[26]) {
+  selectClose[26].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(26);
+  })
+}
+
+if (selectClose[27]) {
+  selectClose[27].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(27);
+  })
+}
+
+if (selectClose[28]) {
+  selectClose[28].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(28);
+  })
+}
+
+if (selectClose[29]) {
+  selectClose[29].addEventListener("click", function() {
+    displayInline();
+    displayNoneBack(29);
+  })
+}
+
+
+
 }
 });
 }
 
+
+
 //Load the next 5 results...
 document.querySelector(".next").addEventListener("click", function () {
 document.querySelector(".next").style.display = "none";
-document.querySelector(".next2").innerHTML = "Load More...";
+document.querySelector(".next2").innerHTML = "Load More";
   eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 2);
 });
 
 //Load the next 5 results...
 document.querySelector(".next2").addEventListener("click", function () {
 document.querySelector(".next2").style.display = "none";
-document.querySelector(".next3").innerHTML = "Load More....";
+document.querySelector(".next3").innerHTML = "Load More";
   eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 3);
 });
 
 //Load the next 5 results...
 document.querySelector(".next3").addEventListener("click", function () {
 document.querySelector(".next3").style.display = "none";
-document.querySelector(".next4").innerHTML = "Load More.....";
+document.querySelector(".next4").innerHTML = "Load More";
   eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 4);
 });
 

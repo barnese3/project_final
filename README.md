@@ -36,3 +36,10 @@ Main Functionality
 
 
 ### Using ACTIVE API
+
+### COLORS - https://coolors.co/faf3dd-c8d5b9-8fc0a9-68b0ab-4a7c59
+
+### FONTS - 
+// font-family: 'Karma', serif;
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Nunito', sans-serif;
