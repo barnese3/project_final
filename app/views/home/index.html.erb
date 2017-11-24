@@ -1,3 +1,8 @@
+<%= video_tag "Into_the_Wild.mp4", autoplay: true, loop: true %>
+
+<div class="landingHeader"><h1>Where To?</h1></div>
+<div class="landingHeaderText"><h3>Your guide to the greate outdoors and living an active lifestlye</h3></div>
+
 <script>
 function topFunction() {
   document.body.scrollTop = 0;
@@ -15,17 +20,32 @@ function topFunction() {
 <h1 class="noMoreResults"></h1>
 
 <!-- form for user to search for events by city, state, category, and date -->
+<div class="homeFormContain">
 <form>
-  <label for="city">City:</label>
-  <input name="city" type="text" class="searchCity" />
-  <label for="state">State:</label>
-  <input name="state" type="text" class="searchState" />
-  <label for="category">Category:</label>
-  <input name="category" type="text" class="searchCategory" />
-  <label for="start_date">Date:</label>
+<!--   <label for="city">City:</label> -->
+  <input name="city" type="text" class="searchCity" placeholder="City" />
+<!--   <label for="state">State:</label> -->
+  <input name="state" type="text" class="searchState" placeholder="State" />
+<!--   <label for="category">Category:</label> -->
+    <select name="category" class="searchCategory" placeholder="category">
+    <option class="searchCategory"></option>
+    <option value="camping" class="searchCategory">Camping</option>
+    <option value="hiking" class="searchCategory">Hiking</option>
+    <option value="running" class="searchCategory">Running</option>
+    <option value="surfing" class="searchCategory">Surfing</option>
+    <option value="fitness" class="searchCategory">Fitness</option>
+    <option value="classes" class="searchCategory">Classes</option>
+  </select>
+<!--   <input name="category" type="text" class="searchCategory" placeholder="Category" /> -->
+<!--   <label for="start_date">Date:</label> -->
   <input name="start_date" type="date" class="searchDate" />
-  <input type="submit" value="Search" id="submit" />
+  <div class="search">
+   <input type="submit" value="Search" id="submit" />
+  </div>
 </form>
+</div>
+
+<div class="continue"><%= link_to "Continue to Site >>", home_path %></div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
@@ -39,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     event.preventDefault();
     eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 1);
     document.querySelector(".next").innerHTML = "Load More";
+    console.log(document.querySelector(".searchCategory").value);
   })
   function eventSearch (city, state, category, start_date, current_page) {
   if (document.querySelector(".searchDate").value.length == 0) {
@@ -50,18 +71,19 @@ document.addEventListener("DOMContentLoaded", function() {
     params: {
       city: city,
       state: state,
-      category: category,
+      topic: category,
       start_date: start_date,
       current_page: current_page,
       per_page: 5,
       api_key: "f22xnqt8nbeqk9dutzr86pk9",
-      exists: "assetName",
-      exists: "activityStartDate",
-      exists: "place.addressLine1Txt",
-      exists: "place.cityName",
       exists: "assetDescriptions"
     }
 }).then(response => {
+  document.querySelector("video").style.display = "none";
+  document.querySelector(".landingHeader").style.display = "none";
+  document.querySelector(".landingHeaderText").style.display = "none";
+  document.querySelector(".homeFormContain").style.display = "none";
+  document.querySelector(".continue").style.display = "none";
   console.log(response.data.results);
   if (response.data.results.length == 0) {
     document.querySelector(".noMoreResults").innerHTML = "End of Results";
@@ -149,14 +171,17 @@ $.ajax({
 //   document.querySelector(".links").innerHTML = '<a href="events/params[:id]">Details</a>';
 // });
 
-//after the event is saved to the datebase, the DOM is updated with events returned from the search
-  document.querySelector(".eventSearchList").innerHTML +=
-    "<h1 class='name'>" + row.assetName + "</h1>" +
-    "<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
-    "<p class='date'>" + row.activityStartDate + "</p>" +
-    "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
-    "<p class='city'>" + row.place.cityName + "</p>" +
-    "<p class='state'>" + row.place.stateProvinceCode + "</p>";
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var date = new Date(row.activityStartDate);
+
+    //after the event is saved to the datebase, the DOM is updated with events returned from the search
+    document.querySelector(".eventSearchList").innerHTML +=
+    "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
+    // "<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
+    "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p></div>";
+    // "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
+    // "<p class='city'>" + row.place.cityName + "</p>" +
+    // "<p class='state'>" + row.place.stateProvinceCode + "</p>
 })
 }
 });

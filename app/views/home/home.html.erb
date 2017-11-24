@@ -1,0 +1,205 @@
+<script>
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<div class="eventSearchList"></div>
+<div class="links"></div>
+<h1 class="next"></h1>
+<h1 class="next2"></h1>
+<h1 class="next3"></h1>
+<h1 class="next4"></h1>
+<button class="backToTop" onclick="topFunction()">Back to Top</button>
+<h1 class="noMoreResults"></h1>
+
+<!-- form for user to search for events by city, state, category, and date -->
+<div class="homeFormContain2">
+<form>
+<!--   <label for="city">City:</label> -->
+  <input name="city" type="text" class="searchCity" placeholder="City" />
+<!--   <label for="state">State:</label> -->
+  <input name="state" type="text" class="searchState" placeholder="State" />
+<!--   <label for="category">Category:</label> -->
+    <select name="category" class="searchCategory" placeholder="category">
+    <option class="searchCategory"></option>
+    <option value="camping" class="searchCategory">Camping</option>
+    <option value="hiking" class="searchCategory">Hiking</option>
+    <option value="running" class="searchCategory">Running</option>
+    <option value="surfing" class="searchCategory">Surfing</option>
+    <option value="fitness" class="searchCategory">Fitness</option>
+    <option value="classes" class="searchCategory">Classes</option>
+  </select>
+<!--   <input name="category" type="text" class="searchCategory" placeholder="Category" /> -->
+<!--   <label for="start_date">Date:</label> -->
+  <input name="start_date" type="date" class="searchDate" />
+  <div class="search">
+   <input type="submit" value="Search" id="submit" />
+  </div>
+</form>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+var i = 0;
+var eventsArray = [];
+var todaysDate = '<%= Date.today %>';
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 1);
+    document.querySelector(".next").innerHTML = "Load More";
+    console.log(document.querySelector(".searchCategory").value);
+  })
+  function eventSearch (city, state, category, start_date, current_page) {
+  if (document.querySelector(".searchDate").value.length == 0) {
+    start_date = todaysDate;
+  }
+  axios({
+  method: 'get',
+  url: 'http://api.amp.active.com/v2/search/?',
+    params: {
+      city: city,
+      state: state,
+      topic: category,
+      start_date: start_date,
+      current_page: current_page,
+      per_page: 5,
+      api_key: "f22xnqt8nbeqk9dutzr86pk9",
+      exists: "assetDescriptions"
+    }
+}).then(response => {
+  console.log(response.data.results);
+  if (response.data.results.length == 0) {
+    document.querySelector(".noMoreResults").innerHTML = "End of Results";
+  } else {
+  response.data.results.forEach( row => {
+
+// for each row, a new event form is created along with its inputs/values
+
+  var eventSave = [];
+  var eventInput1 = [];
+  var eventInput2 = [];
+  var eventInput3 = [];
+  var eventInput4 = [];
+  var eventInput5 = [];
+  var eventInput6 = [];
+  var eventInput7 = [];
+
+// variable i is incrementing to create a new form(with new inputs) in the eventSave array on each iteration of the loop
+  i++;
+
+  eventSave.push(i);
+  eventInput1.push(i);
+  eventInput2.push(i);
+  eventInput3.push(i);
+  eventInput4.push(i);
+  eventInput5.push(i);
+  eventInput6.push(i);
+
+  eventSave[i] = document.createElement("FORM");
+  eventSave[i].setAttribute("class", "event_form");
+  eventSave[i].setAttribute("name", "form");
+  eventSave[i].setAttribute("action", "/events");
+  eventSave[i].setAttribute("method", "post");
+
+    eventInput1[i] = document.createElement("INPUT");
+    eventInput1[i].setAttribute("name", "event[name]");
+    eventInput1[i].setAttribute("class", "event_name");
+    eventInput1[i].setAttribute("value", row.assetName);
+    eventSave[i].appendChild(eventInput1[i]);
+
+    eventInput2[i] = document.createElement("INPUT");
+    eventInput2[i].setAttribute("name", "event[description]");
+    eventInput2[i].setAttribute("class", "description");
+    eventInput2[i].setAttribute("value", row.assetDescriptions[0].description);
+    eventSave[i].appendChild(eventInput2[i]);
+
+    eventInput3[i] = document.createElement("INPUT");
+    eventInput3[i].setAttribute("name", "event[start_date]");
+    eventInput3[i].setAttribute("class", "start_date");
+    eventInput3[i].setAttribute("value", row.activityStartDate);
+    eventSave[i].appendChild(eventInput3[i]);
+
+    eventInput4[i] = document.createElement("INPUT");
+    eventInput4[i].setAttribute("name", "event[street]");
+    eventInput4[i].setAttribute("class", "street");
+    eventInput4[i].setAttribute("value", row.place.addressLine1Txt);
+    eventSave[i].appendChild(eventInput4[i]);
+
+    eventInput5[i] = document.createElement("INPUT");
+    eventInput5[i].setAttribute("name", "event[city]");
+    eventInput5[i].setAttribute("class", "city");
+    eventInput5[i].setAttribute("value", row.cityName);
+    eventSave[i].appendChild(eventInput5[i]);
+
+    eventInput6[i] = document.createElement("INPUT");
+    eventInput6[i].setAttribute("name", "event[state]");
+    eventInput6[i].setAttribute("class", "state");
+    eventInput6[i].setAttribute("value", row.stateProvinceCode);
+    eventSave[i].appendChild(eventInput6[i]);
+
+    document.body.appendChild(eventSave[i]);
+    eventsArray.push(eventSave[i]);
+
+// after a form is created, it is submitted to the database using ajax
+$.ajax({
+  type: 'POST',
+  url: '/events',
+  data: $("form").serialize(), 
+  success: function(response){
+    console.log("event added to database");
+  }
+});
+
+// $(document).ajaxComplete(function() {
+//   document.querySelector(".links").innerHTML = '<a href="events/params[:id]">Details</a>';
+// });
+
+//after the event is saved to the datebase, the DOM is updated with events returned from the search
+  document.querySelector(".eventSearchList").innerHTML +=
+    "<h1 class='name'>" + row.assetName + "</h1>" +
+    "<p class='description'>" + row.assetDescriptions[0].description + "</p>" +
+    "<p class='date'>" + row.activityStartDate + "</p>" +
+    "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
+    "<p class='city'>" + row.place.cityName + "</p>" +
+    "<p class='state'>" + row.place.stateProvinceCode + "</p>";
+})
+}
+});
+}
+
+//Load the next 5 results...
+document.querySelector(".next").addEventListener("click", function () {
+document.querySelector(".next").style.display = "none";
+document.querySelector(".next2").innerHTML = "Load More...";
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 2);
+});
+
+//Load the next 5 results...
+document.querySelector(".next2").addEventListener("click", function () {
+document.querySelector(".next2").style.display = "none";
+document.querySelector(".next3").innerHTML = "Load More....";
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 3);
+});
+
+//Load the next 5 results...
+document.querySelector(".next3").addEventListener("click", function () {
+document.querySelector(".next3").style.display = "none";
+document.querySelector(".next4").innerHTML = "Load More.....";
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 4);
+});
+
+//Load the next 5 results...
+document.querySelector(".next4").addEventListener("click", function () {
+document.querySelector(".next4").style.display = "none";
+document.querySelector(".backToTop").style.display = "block";
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 5);
+});
+
+});
+
+</script>

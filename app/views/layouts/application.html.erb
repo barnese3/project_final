@@ -3,24 +3,27 @@
   <head>
     <title>ProjectFinal</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Karma|Nunito|Raleway" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
+  <body class="<%= @class %>">
   	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <div class="navContain">
     <nav>
       <ul>
         <li><%= link_to "Home", :root %></li>
         <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><i class="fa fa-tree" aria-hidden="true"></i></li>
         <li><%= link_to "Sign Up", new_user_registration_path %></li>
         <li><%= link_to "All Users", users_path %></li>
         <li><%= link_to "My Account", current_user if current_user %></li>
         <li><%= link_to "Log Out", destroy_user_session_path, method: :delete if current_user %></li>
       </ul>
     </nav>
+  </div>
     <%= yield %>
   </body>
 </html>

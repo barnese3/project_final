@@ -16,7 +16,7 @@ Main Functionality
 
 3. (**SEARCH LIST PAGE**) Populate list of all criteria that matches the search
 
-4. (**SINGLE EVENT PAGE**) Click on event from the list and show the following:
+4. (**SINGLE EVENT MODAL**) Click on event from the list and show the following:
    --event info (tbd based on what the api provides)
    --centered map on the location
    --register button

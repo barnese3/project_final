@@ -51,7 +51,8 @@
       <% userevent.status = 1 %>
     <% end %>
     <% if userevent.status == "upcoming" %>
-      <p><%= userevent.event.name %> <%= userevent.status %></p>
+      <p><%= link_to userevent.event.name, userevent.event %> <%= userevent.status %></p>
+      <p class="fromWishlist"></p>
     <% end %>
   <% end %>
 </p>
@@ -72,6 +73,7 @@
   <% @user.user_events.each do |userevent| %>
     <% if userevent.status == "wishlist" %>
       <p><%= userevent.event.name %> <%= userevent.status %></p>
+      <p><%= link_to "Remove From Wishlist", userevent, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true %></p>
     <% end %>
   <% end %>
 </p>

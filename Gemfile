@@ -54,3 +54,9 @@ gem 'carrierwave'
 gem 'devise'
 
 gem "jquery-rails"
+
+gem 'font-awesome-rails'
+
+gem 'social-share-button'
+
+gem 'skeleton-rails', :git => 'https://github.com/helios-technologies/skeleton-rails'
