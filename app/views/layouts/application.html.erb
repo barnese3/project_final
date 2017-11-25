@@ -19,11 +19,49 @@
         <li><i class="fa fa-tree" aria-hidden="true"></i></li>
         <li><%= link_to "Sign Up", new_user_registration_path %></li>
         <li><%= link_to "All Users", users_path %></li>
-        <li><%= link_to "My Account", current_user if current_user %></li>
-        <li><%= link_to "Log Out", destroy_user_session_path, method: :delete if current_user %></li>
       </ul>
     </nav>
   </div>
+    <% if current_user %>
+      <div class="userAccount">
+        <i id="user" class="fa fa-user-o" onclick="userOptions()" ></i>
+          <div class="userAccountOptions">
+            <li><%= link_to "My Account", current_user %></li>
+            <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
+          </div>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
+
+<script>
+
+function userOptions() {
+    var x = document.querySelector(".userAccountOptions");
+    if (x.style.opacity === "0") {
+        x.style.opacity = "1";
+    } else {
+        x.style.opacity = "0";
+    }
+}
+
+// document.querySelector("#user").addEventListener("click", function() {
+//   $( ".userAccountOptions" ).toggle(function() {
+//   $(".userAccountOptions").style.opacity = "1";
+// }, function() {
+//   $(".userAccountOptions").style.opacity = "0";
+// });
+// // console.log("hello");
+// //   if (document.querySelector(".userAccountOptions").style.opacity = 0) {
+// //       document.querySelector(".userAccountOptions").style.opacity = 1;
+// //   }
+
+// //   if (document.querySelector(".userAccountOptions").style.opacity = "1") {
+// //       document.querySelector(".userAccountOptions").style.opacity = "0";
+// //   }
+// })
+
+
+
+</script>

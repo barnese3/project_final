@@ -145,13 +145,13 @@ document.addEventListener("DOMContentLoaded", function() {
     eventInput5[i] = document.createElement("INPUT");
     eventInput5[i].setAttribute("name", "event[city]");
     eventInput5[i].setAttribute("class", "city");
-    eventInput5[i].setAttribute("value", row.cityName);
+    eventInput5[i].setAttribute("value", row.place.cityName);
     eventSave[i].appendChild(eventInput5[i]);
 
     eventInput6[i] = document.createElement("INPUT");
     eventInput6[i].setAttribute("name", "event[state]");
     eventInput6[i].setAttribute("class", "state");
-    eventInput6[i].setAttribute("value", row.stateProvinceCode);
+    eventInput6[i].setAttribute("value", row.place.stateProvinceCode);
     eventSave[i].appendChild(eventInput6[i]);
 
     document.body.appendChild(eventSave[i]);
@@ -164,10 +164,11 @@ $.ajax({
   data: $("form").serialize(), 
   success: function(response){
     console.log("event added to database");
+    <% p @event %>
   }
 });
 
-    // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var options2 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var options = { day: 'numeric', month: 'short' };
     var date = new Date(row.activityStartDate);
 
@@ -176,10 +177,27 @@ $.ajax({
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
     "<p class='moreInfo'>More Information</p></div>" +
-    "<div class='singleEventBack' style='display:none'><span class='close'>&times;</span><p class='description'>" + row.assetDescriptions[0].description + "</p>" +
-    "<p class='street'>" + row.place.addressLine1Txt + "</p>" +
-    "<p class='city'>" + row.place.cityName + "</p>" +
-    "<p class='state'>" + row.place.stateProvinceCode + "</p></div>";
+    "<div class='singleEventBack' style='display:none'>" +
+    "<p class='close'>&times;</p>" +
+    "<h1 class='name'>" + row.assetName + "</h1>" +
+    "<p class='date'>" + date.toLocaleDateString("en-US", options2) + "</p>" + 
+    "<div class='container'>" +
+    "<div class='row'>" +
+    "<div class='six columns'><p class='description'>" + row.assetDescriptions[0].description + "</p></div>" +
+    "<div class='six columns'><span class='street'>" + row.place.addressLine1Txt + "</span>" + " " +
+    "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></div></div></p>" + 
+    // "<a target='_blank' href='http://twitter.com/share?url=http://localhost:3000/' class='share-twitter'>" +
+    // "<span class='icon icon-twitter'></span>" +
+    // "<span class='share-title'>Tweet</span>" +
+    // "</a>" +
+    "</div>";
+     
+
+    // if (row.registrationUrlAdr.length > 1) {
+    //   document.querySelector(".eventSearchList").innerHTML +=
+    //   "<div class='registration' style='display:none'>" +
+    //   "<p class='registrationLink'><a target = '_blank' href='" + row.registrationUrlAdr + "'</a>REGISTER</p></div>";
+    // }
 })
 
 
@@ -197,6 +215,9 @@ function displayNone() {
 
 function displayBlock(index) {
   document.querySelectorAll(".singleEventBack")[index].style.display = "block";
+  // document.querySelectorAll(".registration")[index].style.display = "block";
+  document.body.style.backgroundColor = "#C8D5B9";
+  document.querySelector("nav").style.display = "none";
 }
 
 var selectInfo = document.querySelectorAll(".moreInfo");
@@ -426,7 +447,10 @@ function displayInline() {
 }
 
 function displayNoneBack(index) {
+  document.body.style.backgroundColor = "white";
+  document.querySelector("nav").style.display = "block";
   document.querySelectorAll(".singleEventBack")[index].style.display = "none";
+  // document.querySelectorAll(".registration")[index].style.display = "none";
 }
 
 var selectClose = document.querySelectorAll(".close");
@@ -641,13 +665,9 @@ if (selectClose[29]) {
   })
 }
 
-
-
 }
 });
 }
-
-
 
 //Load the next 5 results...
 document.querySelector(".next").addEventListener("click", function () {

@@ -5,18 +5,9 @@
   <%= @event.name %>
 </p>
 
-<i class="fa fa-facebook-official"></i>
-<i class="fa fa-twitter-square"></i>
-<i class="fa fa-envelope-o"></i>
-
 <p>
   <strong>Description:</strong>
   <%= @event.description %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @event.image %>
 </p>
 
 <p>
@@ -25,14 +16,8 @@
 </p>
 
 <p>
-  <strong>End date:</strong>
-  <%= @event.end_date %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
+  <strong>Date:</strong>
   <%= @event.start_date.to_date %>
-  <%= Date.today %>
   <% if @event.start_date.to_date < Date.today %>
     <p>past</p>
   <% end %>
@@ -56,28 +41,29 @@
   <%= @event.state %>
 </p>
 
-<%= form_with(model: UserEvent.new, local: true) do |form| %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :event_id, value: @event.id %>
-    <%= form.hidden_field :status, value: "upcoming" %>
-    <%= form.submit "Upcoming" %>
+<% if user_signed_in? %>
+  <%= form_with(model: UserEvent.new, local: true) do |form| %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :event_id, value: @event.id %>
+      <%= form.hidden_field :status, value: "upcoming" %>
+      <%= form.submit "Add to 'My Upcoming Events'" %>
+  <% end %>
+
+<% if @event.start_date.to_date < Date.today %>
+  <%= form_with(model: UserEvent.new, local: true) do |form| %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :event_id, value: @event.id %>
+      <%= form.hidden_field :status, value: "past" %>
+      <%= form.submit "Add to 'Events I've Attended" %>
+  <% end %>
 <% end %>
 
-<%= form_with(model: UserEvent.new, local: true) do |form| %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :event_id, value: @event.id %>
-    <%= form.hidden_field :status, value: "past" %>
-    <%= form.submit "Past" %>
+  <%= form_with(model: UserEvent.new, local: true) do |form| %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :event_id, value: @event.id %>
+      <%= form.hidden_field :status, value: "wishlist" %>
+      <%= form.submit "Add to 'My Event Wishlist'" %>
+  <% end %>
 <% end %>
-
-<%= form_with(model: UserEvent.new, local: true) do |form| %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :event_id, value: @event.id %>
-    <%= form.hidden_field :status, value: "wishlist" %>
-    <%= form.submit "Wishlist" %>
-<% end %>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
 
 <%= social_share_button_tag(@event.name) %>

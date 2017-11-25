@@ -14,7 +14,29 @@
 
 	.eventBar {
 		height: 50px;
-		background-color: yellow;
+		background-color: #C8D5B9;
 		position: absolute;
 	}
+
+	.eventBarText {
+		position: absolute;
+		height: 50px;
+		width: 100%;
+		text-align: center;
+		font-size: 30px;
+	}
+}
+
+.usershow {
+ .container {
+ 	.row {
+ 		#column2 {
+ 		}
+
+	 	img {
+	 		width: 450px;
+	 		height: 300px;
+	 	}	
+ 	}
+ }
 }

@@ -1,90 +1,78 @@
 <div class="eventBarContainMain">
   <div class="eventBarContain">
     <div class="eventBar"></div>
+      <div class="eventBarText"></div>
   </div>
 </div>
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+<div class='container'>
+  <div class='row'>
+    <div class='six columns'>
+      <%= image_tag(@user.image) if @user.image? %>
+    </div>
+    <div class='six columns' id="column2">
+      <p><%= @user.first_name %> <%= @user.last_name %></p>
+      <p><%= @user.about %></p>
+      <p>
+        <a href="<%= @user.facebook %>" target="_blank"><i class="fa fa-facebook-official"></i></a>
+        <a href="<%= @user.twitter %>" target="_blank"><i class="fa fa-twitter-square"></i></i></a>
+        <a href="<%= @user.instagram %>" target="_blank"><i class="fa fa-instagram"></i></i></a>
+        <a href="mailto:<%= @user.email %>" target="_top"><i class="fa fa-envelope-o"></i></a>
+      </p>
+    </div>
+  </div><!--  end of row -->
+  <div class="row">
+    <div class="one-third column">
+      <p>
+        <strong>Upcoming Events</strong>
+          <% @user.user_events.each do |userevent| %>
+            <% if userevent.event.start_date.to_date < Date.today && userevent.status == "upcoming" %>
+              <% userevent.status = 1 %>
+            <% end %>
+            <% if userevent.status == "upcoming" %>
+              <p><%= link_to userevent.event.name, userevent.event %></p>
+              <p class="fromWishlist"></p>
+            <% end %>
+          <% end %>
+      </p>
+    </div>
+    <div class="one-third column">
+      <p>
+        <strong>Past Events</strong>
+          <% pastEvents = Array.new %>
+            <% @user.user_events.each do |userevent| %>
+              <% if userevent.status == "past" %>
+                <% pastEvents.push(userevent) %>
+                <p><%= link_to userevent.event.name, userevent.event %></p>
+              <% end %>
+            <% end %>
+      </p>
+    </div>
+    <div class="one-third column">
+      <p>
+        <strong>Wishlist Events</strong>
+          <% @user.user_events.each do |userevent| %>
+            <% if userevent.status == "wishlist" %>
+              <p><%= link_to userevent.event.name, userevent.event %></p>
+              <p><%= link_to "Remove From Wishlist", userevent, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true %></p>
+            <% end %>
+          <% end %>
+      </p>
+    </div>
+  </div><!--  end of row -->
+</div> <!-- end of container -->
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag(@user.image) if @user.image? %>
-</p>
 
-<p>
-  <strong>Facebook:</strong>
-  <%= link_to "Facebook", @user.facebook, target: "_blank" %>
-</p>
 
-<p>
-  <strong>Twitter:</strong>
-  <%= link_to "Twitter", @user.twitter, target: "_blank" %>
-</p>
 
-<p>
-  <strong>Instagram:</strong>
-  <%= link_to "Instagram", @user.instagram, target: "_blank" %>
-</p>
 
-<p>
-  <strong>About:</strong>
-  <%= @user.about %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= mail_to @user.email, "Email" %>
-</p>
-
-<p>
-  <strong>Upcoming Events</strong>
-  <% @user.user_events.each do |userevent| %>
-    <% if userevent.event.start_date.to_date < Date.today && userevent.status == "upcoming" %>
-      <% userevent.status = 1 %>
-    <% end %>
-    <% if userevent.status == "upcoming" %>
-      <p><%= link_to userevent.event.name, userevent.event %> <%= userevent.status %></p>
-      <p class="fromWishlist"></p>
-    <% end %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Past Events</strong>
-  <% pastEvents = Array.new %>
-  <% @user.user_events.each do |userevent| %>
-    <% if userevent.status == "past" %>
-      <% pastEvents.push(userevent) %>
-      <p><%= userevent.event.name %> <%= userevent.status %></p>
-    <% end %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Wishlist Events</strong>
-  <% @user.user_events.each do |userevent| %>
-    <% if userevent.status == "wishlist" %>
-      <p><%= userevent.event.name %> <%= userevent.status %></p>
-      <p><%= link_to "Remove From Wishlist", userevent, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true %></p>
-    <% end %>
-  <% end %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit My Account', edit_user_path(@user) %>
 
 <script>
   var userevents = <%= pastEvents.length %>;
   var eventbar = document.querySelector(".eventBar");
-  eventbar.innerHTML = "You have attended " + userevents + " events";
+  document.querySelector(".eventBarText").innerHTML = "<%= @user.first_name %>" + " has attended " + userevents + " events";
   if (userevents == 0) {
     eventbar.style.width = "0%";
   }
