@@ -36,13 +36,34 @@ body {
 
 .userAccount {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -2%;
+  right: 1.5%;
   cursor: pointer;
+  text-align: right;
+
+  #user {
+    width: 100%;
+    text-align: right;
+    font-size: 22px;
+    padding-bottom: 6%;
+  }
 
   .userAccountOptions {
     opacity: 0;
     transition: .3s ease;
+
+    li {
+      list-style-type: none;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      a:hover {
+        color: #4A7C59;
+      }
+    }
   }
 }
 
@@ -121,7 +142,7 @@ body {
     }
 
     input {
-      width: 672.5px;
+      width: 722px;
     }
   }
 
@@ -137,7 +158,6 @@ body {
 }
 
 .home #submit {
-  // background-color: white;
   color: white;
 }
 
@@ -252,8 +272,4 @@ body {
   color: black;
   padding: 0;
   margin: 0;
-}
-
-.row {
-  margin-top: 10%;
 }

@@ -1,7 +1,7 @@
 <%= video_tag "Into_the_Wild.mp4", autoplay: true, loop: true %>
 
 <div class="landingHeader"><h1>Where To?</h1></div>
-<div class="landingHeaderText"><h3>Your guide to the greate outdoors and living an active lifestlye</h3></div>
+<div class="landingHeaderText"><h3>Your guide to the great outdoors and living an active lifestyle</h3></div>
 
 <script>
 function topFunction() {
@@ -11,32 +11,53 @@ function topFunction() {
 </script>
 
 <div class="eventSearchList"></div>
-<h1 class="next"></h1>
-<h1 class="next2"></h1>
-<h1 class="next3"></h1>
-<h1 class="next4"></h1>
-<button class="backToTop" onclick="topFunction()">Back to Top</button>
-<h1 class="noMoreResults"></h1>
+<div class="nextContain">
+  <h1 class="next"></h1>
+  <h1 class="next2"></h1>
+  <h1 class="next3"></h1>
+  <h1 class="next4"></h1>
+  <button class="backToTop" onclick="topFunction()">Back to Top</button>
+  <h1 class="noMoreResults"></h1>
+</div>
 
 <!-- form for user to search for events by city, state, category, and date -->
 <div class="homeFormContain">
 <form>
-<!--   <label for="city">City:</label> -->
   <input name="city" type="text" class="searchCity" placeholder="City" />
-<!--   <label for="state">State:</label> -->
   <input name="state" type="text" class="searchState" placeholder="State" />
-<!--   <label for="category">Category:</label> -->
     <select name="category" class="searchCategory" placeholder="category">
     <option class="searchCategory"></option>
-    <option value="camping" class="searchCategory">Camping</option>
-    <option value="hiking" class="searchCategory">Hiking</option>
-    <option value="running" class="searchCategory">Running</option>
-    <option value="surfing" class="searchCategory">Surfing</option>
-    <option value="fitness" class="searchCategory">Fitness</option>
-    <option value="classes" class="searchCategory">Classes</option>
+    <option value="outdoors" class="searchCategory">outdoors</option>
+    <option value="kayaking" class="searchCategory">kayaking</option>
+    <option value="rafting" class="searchCategory">rafting</option>
+    <option value="sailing" class="searchCategory">sailing</option>
+    <option value="hiking" class="searchCategory">hiking</option>
+    <option value="climbing" class="searchCategory">climbing</option>
+    <option value="fishing" class="searchCategory">fishing</option>
+    <option value="hunting" class="searchCategory">hunting</option>
+    <option value="camping" class="searchCategory">camping</option>
+    <option value="surfing" class="searchCategory">surfing</option>
+    <option value="skiing" class="searchCategory">skiing</option>
+    <option value="snowboarding" class="searchCategory">snowboarding</option>
+    <option value="mountain biking" class="searchCategory">mountain biking</option>
+    <option value="walking" class="searchCategory">walking</option>
+    <option value="fitness" class="searchCategory">fitness</option>
+    <option value="running" class="searchCategory">running</option>
+    <option value="cycling" class="searchCategory">cycling</option>
+    <option value="swimming" class="searchCategory">swimming</option>
+    <option value="baseball" class="searchCategory">baseball</option>
+    <option value="basketball" class="searchCategory">basketball</option>
+    <option value="soccer" class="searchCategory">soccer</option>
+    <option value="football" class="searchCategory">football</option>
+    <option value="hockey" class="searchCategory">hockey</option>
+    <option value="lacrosse" class="searchCategory">lacrosse</option>
+    <option value="softball" class="searchCategory">softball</option>
+    <option value="dance" class="searchCategory">dance</option>
+    <option value="zumba" class="searchCategory">zumba</option>
+    <option value="yoga" class="searchCategory">yoga</option>
+    <option value="pilates" class="searchCategory">pilates</option>
+    <option value="recreation" class="searchCategory">recreation</option>
   </select>
-<!--   <input name="category" type="text" class="searchCategory" placeholder="Category" /> -->
-<!--   <label for="start_date">Date:</label> -->
   <input name="start_date" type="date" class="searchDate" />
   <div class="search">
    <input type="submit" value="Search" id="submit" />
@@ -51,18 +72,23 @@ function topFunction() {
 
 var i = 0;
 var eventsArray = [];
-var todaysDate = '<%= Date.today %>';
+var todaysDate = '<%= Date.today %>..';
+var searchDate;
 
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault();
-    eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 1);
+    searchDate = document.querySelector(".searchDate").value + "..";
+    console.log(searchDate);
+    eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 1, document.querySelector(".searchCategory").value, searchDate);
     document.querySelector(".next").innerHTML = "Load More";
     console.log(document.querySelector(".searchCategory").value);
   })
-  function eventSearch (city, state, category, start_date, current_page) {
-  if (document.querySelector(".searchDate").value.length == 0) {
+  function eventSearch (city, state, current_page, topic, start_date) {
+  if (searchDate.length == 2) {
+    console.log(searchDate.length);
     start_date = todaysDate;
+    console.log(start_date);
   }
   axios({
   method: 'get',
@@ -70,12 +96,14 @@ document.addEventListener("DOMContentLoaded", function() {
     params: {
       city: city,
       state: state,
-      topic: category,
-      start_date: start_date,
       current_page: current_page,
       per_page: 6,
-      api_key: "f22xnqt8nbeqk9dutzr86pk9",
-      exists: "assetDescriptions"
+      sort: "date_asc",
+      topic: topic,
+      start_date: start_date,
+      exclude_children: "true",
+      exists: "assetDescriptions",
+      api_key: "f22xnqt8nbeqk9dutzr86pk9"
     }
 }).then(response => {
   // window.location.href = "/eventsearch";
@@ -206,15 +234,11 @@ function displayNone() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
     document.querySelectorAll(".singleEvent")[i].style.display = "none";
   }
-  document.querySelector(".next").style.display = "none";
-  document.querySelector(".next2").style.display = "none";
-  document.querySelector(".next3").style.display = "none";
-  document.querySelector(".next4").style.display = "none";
-  document.querySelector(".backToTop").style.display = "none";
 }
 
 function displayBlock(index) {
   document.querySelectorAll(".singleEventBack")[index].style.display = "block";
+  document.querySelector(".nextContain").style.display = "none";
   // document.querySelectorAll(".registration")[index].style.display = "block";
   document.body.style.backgroundColor = "#C8D5B9";
   document.querySelector("nav").style.display = "none";
@@ -438,11 +462,6 @@ if (selectInfo[29]) {
 function displayInline() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
     document.querySelectorAll(".singleEvent")[i].style.display = "inline-block";
-    document.querySelector(".next").style.display = "block";
-    document.querySelector(".next2").style.display = "block";
-    document.querySelector(".next3").style.display = "block";
-    document.querySelector(".next4").style.display = "block";
-    document.querySelector(".backToTop").style.display = "block";
   }
 }
 
@@ -450,6 +469,7 @@ function displayNoneBack(index) {
   document.body.style.backgroundColor = "white";
   document.querySelector("nav").style.display = "block";
   document.querySelectorAll(".singleEventBack")[index].style.display = "none";
+  document.querySelector(".nextContain").style.display = "block";
   // document.querySelectorAll(".registration")[index].style.display = "none";
 }
 
@@ -673,28 +693,28 @@ if (selectClose[29]) {
 document.querySelector(".next").addEventListener("click", function () {
 document.querySelector(".next").style.display = "none";
 document.querySelector(".next2").innerHTML = "Load More";
-  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 2);
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 2, document.querySelector(".searchCategory").value, searchDate);
 });
 
 //Load the next 5 results...
 document.querySelector(".next2").addEventListener("click", function () {
 document.querySelector(".next2").style.display = "none";
 document.querySelector(".next3").innerHTML = "Load More";
-  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 3);
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 3, document.querySelector(".searchCategory").value, searchDate);
 });
 
 //Load the next 5 results...
 document.querySelector(".next3").addEventListener("click", function () {
 document.querySelector(".next3").style.display = "none";
 document.querySelector(".next4").innerHTML = "Load More";
-  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 4);
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 4, document.querySelector(".searchCategory").value, searchDate);
 });
 
 //Load the next 5 results...
 document.querySelector(".next4").addEventListener("click", function () {
 document.querySelector(".next4").style.display = "none";
 document.querySelector(".backToTop").style.display = "block";
-  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, document.querySelector(".searchCategory").value, document.querySelector(".searchDate").value, 5);
+  eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 5, document.querySelector(".searchCategory").value, searchDate);
 });
 
 });

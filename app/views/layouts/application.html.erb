@@ -24,7 +24,7 @@
   </div>
     <% if current_user %>
       <div class="userAccount">
-        <i id="user" class="fa fa-user-o" onclick="userOptions()" ></i>
+        <i id="user" class="fa fa-user-o fa" onclick="userOptions()" ></i>
           <div class="userAccountOptions">
             <li><%= link_to "My Account", current_user %></li>
             <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
@@ -38,30 +38,12 @@
 <script>
 
 function userOptions() {
-    var x = document.querySelector(".userAccountOptions");
-    if (x.style.opacity === "0") {
-        x.style.opacity = "1";
+    var userIcon = document.querySelector(".userAccountOptions");
+    if (userIcon.style.opacity === "0") {
+        userIcon.style.opacity = "1";
     } else {
-        x.style.opacity = "0";
+        userIcon.style.opacity = "0";
     }
 }
-
-// document.querySelector("#user").addEventListener("click", function() {
-//   $( ".userAccountOptions" ).toggle(function() {
-//   $(".userAccountOptions").style.opacity = "1";
-// }, function() {
-//   $(".userAccountOptions").style.opacity = "0";
-// });
-// // console.log("hello");
-// //   if (document.querySelector(".userAccountOptions").style.opacity = 0) {
-// //       document.querySelector(".userAccountOptions").style.opacity = 1;
-// //   }
-
-// //   if (document.querySelector(".userAccountOptions").style.opacity = "1") {
-// //       document.querySelector(".userAccountOptions").style.opacity = "0";
-// //   }
-// })
-
-
 
 </script>
