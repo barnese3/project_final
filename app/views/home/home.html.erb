@@ -280,48 +280,44 @@ $.ajax({
     //after the event is saved to the datebase, the DOM is updated with events returned from the search
     document.querySelector(".eventSearchList").innerHTML +=
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
-    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Event Page</a></p>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
     "<p class='moreInfo'>More Information</p></div>" +
+    "<div class='vl'></div>" +
     "<div class='singleEventBack' style='display:none'>" +
     "<p class='close'>&times;</p>" +
     "<h1 class='name'>" + row.assetName + "</h1>" +
+    "<hr></hr>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options2) + "</p>" + 
-    "<p class='category'><strong>Category: </strong>" + document.querySelector(".searchCategory").value + "</p>" +
-    "<div class='container'>" +
-    "<div class='row'>" +
-    "<div class='six columns'><p class='description'>" + row.assetDescriptions[0].description + "</p></div>" +
-    "<div class='six columns'><span class='street'>" + row.place.addressLine1Txt + "</span>" + " " +
-    "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></div></div></p>" + 
+    "<p class='street'>" + row.place.addressLine1Txt + "</p>" + " " +
+    "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></p>" + 
+    "<p class='description'>" + row.assetDescriptions[0].description.replace(/(<([^>]+)>)/ig," ").slice(0, 100) + "......</p>" +
+    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Event Page</a></p>" +
     "</div>";
 })
 
 //when you click on an events "More Info", all events are hidden and the selected events "info" is being displayed
 function displayNone() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
-    document.querySelectorAll(".singleEvent")[i].style.display = "none";
-    document.querySelector(".homeFormContain2").style.display = "none";
-    document.querySelector(".mainDescription").style.display = "none";
-    document.querySelector(".mainDescriptionText").style.display = "none";
-    document.querySelector(".recentEvents").style.display = "none";
-    document.querySelector(".browseByCategoryHeader").style.display = "none";
-    document.querySelector(".categoryContainer").style.display = "none";
+    // document.querySelectorAll(".singleEvent")[i].style.opacity = "0.3";
+    // document.querySelector(".homeFormContain2").style.display = "none";
+    // document.querySelector(".mainDescription").style.display = "none";
+    // document.querySelector(".mainDescriptionText").style.display = "none";
+    // document.querySelector(".recentEvents").style.display = "none";
+    // document.querySelector(".browseByCategoryHeader").style.display = "none";
+    // document.querySelector(".categoryContainer").style.display = "none";
   }
 }
 
 function displayBlock(index) {
   document.querySelectorAll(".singleEventBack")[index].style.display = "block";
-  document.querySelector(".nextContain").style.display = "none";
-  document.body.style.backgroundColor = "#C8D5B9";
-  document.querySelector("nav").style.display = "none";
+  // document.querySelector(".nextContain").style.display = "none";
+  // document.querySelector("nav").style.display = "none";
 }
 
 var selectInfo = document.querySelectorAll(".moreInfo");
 
 if (selectInfo[0]) {
   selectInfo[0].addEventListener("click", function() {
-    console.log(selectInfo[0]);
-    console.log("clicked");
     displayNone();
     displayBlock(0);
   })
@@ -535,21 +531,20 @@ if (selectInfo[29]) {
 //while the info is being diaplyed, if you select close, all events are being shown again and the info is being hidden
 function displayInline() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
-    document.querySelectorAll(".singleEvent")[i].style.display = "inline-block";
-    document.querySelector(".homeFormContain2").style.display = "block";
-    document.querySelector(".mainDescription").style.display = "block";
-    document.querySelector(".mainDescriptionText").style.display = "block";
-    document.querySelector(".recentEvents").style.display = "block";
-    document.querySelector(".browseByCategoryHeader").style.display = "block";
-    document.querySelector(".categoryContainer").style.display = "block";
+    // document.querySelectorAll(".singleEvent")[i].style.opacity = "1";
+    // document.querySelector(".homeFormContain2").style.display = "block";
+    // document.querySelector(".mainDescription").style.display = "block";
+    // document.querySelector(".mainDescriptionText").style.display = "block";
+    // document.querySelector(".recentEvents").style.display = "block";
+    // document.querySelector(".browseByCategoryHeader").style.display = "block";
+    // document.querySelector(".categoryContainer").style.display = "block";
   }
 }
 
 function displayNoneBack(index) {
-  document.body.style.backgroundColor = "white";
-  document.querySelector("nav").style.display = "block";
+  // document.querySelector("nav").style.display = "block";
   document.querySelectorAll(".singleEventBack")[index].style.display = "none";
-  document.querySelector(".nextContain").style.display = "block";
+  // document.querySelector(".nextContain").style.display = "block";
 }
 
 var selectClose = document.querySelectorAll(".close");
