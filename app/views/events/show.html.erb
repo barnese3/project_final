@@ -9,7 +9,9 @@
         <h1><%= @event.name %></h1>
         <p><%= @event.description %></p>
         <p><%= @event.start_date.to_date %></p>
-        <p><strong>Category: </strong><%= @event.category %></p>
+        <% if @event.category.length > 0 %>
+          <p><strong>Category: </strong><%= @event.category %></p>
+        <% end %>
       </div>
       <div id="eventColumn2" class="one-half column">
         <p class="eventShowStreet"><%= @event.street %></p>

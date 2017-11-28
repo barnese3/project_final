@@ -80,15 +80,14 @@ var i = 0;
 var eventsArray = [];
 var todaysDate = '<%= Date.today %>..';
 var searchDate;
+var arrayIDS = [];
 
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault();
     searchDate = document.querySelector(".searchDate").value + "..";
-    console.log(searchDate);
     eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 1, document.querySelector(".searchCategory").value, searchDate);
     document.querySelector(".next").innerHTML = "Load More";
-    console.log(document.querySelector(".searchCategory").value);
   })
   function eventSearch (city, state, current_page, topic, start_date) {
   if (searchDate.length == 2) {
@@ -112,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
       api_key: "f22xnqt8nbeqk9dutzr86pk9"
     }
 }).then(response => {
-  // window.location.href = "/eventsearch";
   document.querySelector("video").style.display = "none";
   document.querySelector(".landingHeader").style.display = "none";
   document.querySelector(".landingHeaderText").style.display = "none";
@@ -162,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
     eventInput2[i] = document.createElement("INPUT");
     eventInput2[i].setAttribute("name", "event[description]");
     eventInput2[i].setAttribute("class", "description");
-    eventInput2[i].setAttribute("value", row.assetDescriptions[0].description);
+    eventInput2[i].setAttribute("value", row.assetDescriptions[0].description.replace(/(<([^>]+)>)/ig," "));
     eventSave[i].appendChild(eventInput2[i]);
 
     eventInput3[i] = document.createElement("INPUT");
@@ -192,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
     eventInput7[i] = document.createElement("INPUT");
     eventInput7[i].setAttribute("name", "event[category]");
     eventInput7[i].setAttribute("class", "category");
-    eventInput7[i].setAttribute("value", row.assetTopics[0].topic.topicName);
+    eventInput7[i].setAttribute("value", document.querySelector(".searchCategory").value);
     eventSave[i].appendChild(eventInput7[i]);
 
     document.body.appendChild(eventSave[i]);
@@ -200,11 +198,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // after a form is created, it is submitted to the database using ajax
 $.ajax({
+  'async': false,
   type: 'POST',
   url: '/events',
   data: $("form").serialize(), 
+  dataType: "json",
   success: function(response){
     console.log("event added to database");
+    var eventID = response.id;
+    arrayIDS.push(eventID);
   }
 });
 
@@ -217,32 +219,21 @@ $.ajax({
     //after the event is saved to the datebase, the DOM is updated with events returned from the search
     document.querySelector(".eventSearchList").innerHTML +=
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
+    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Event Page</a></p>" +F
     "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
     "<p class='moreInfo'>More Information</p></div>" +
     "<div class='singleEventBack' style='display:none'>" +
     "<p class='close'>&times;</p>" +
     "<h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options2) + "</p>" + 
-    "<p class='category'><strong>Category: </strong>" + row.assetTopics[0].topic.topicName + "</p>" +
+    "<p class='category'><strong>Category: </strong>" + document.querySelector(".searchCategory").value + "</p>" +
     "<div class='container'>" +
     "<div class='row'>" +
     "<div class='six columns'><p class='description'>" + row.assetDescriptions[0].description + "</p></div>" +
     "<div class='six columns'><span class='street'>" + row.place.addressLine1Txt + "</span>" + " " +
     "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></div></div></p>" + 
-    // "<a target='_blank' href='http://twitter.com/share?url=http://localhost:3000/' class='share-twitter'>" +
-    // "<span class='icon icon-twitter'></span>" +
-    // "<span class='share-title'>Tweet</span>" +
-    // "</a>" +
     "</div>";
-     
-
-    // if (row.registrationUrlAdr.length > 1) {
-    //   document.querySelector(".eventSearchList").innerHTML +=
-    //   "<div class='registration' style='display:none'>" +
-    //   "<p class='registrationLink'><a target = '_blank' href='" + row.registrationUrlAdr + "'</a>REGISTER</p></div>";
-    // }
 })
-
 
 //when you click on an events "More Info", all events are hidden and the selected events "info" is being displayed
 function displayNone() {
@@ -254,7 +245,6 @@ function displayNone() {
 function displayBlock(index) {
   document.querySelectorAll(".singleEventBack")[index].style.display = "block";
   document.querySelector(".nextContain").style.display = "none";
-  // document.querySelectorAll(".registration")[index].style.display = "block";
   document.body.style.backgroundColor = "#C8D5B9";
   document.querySelector("nav").style.display = "none";
 }
@@ -485,7 +475,6 @@ function displayNoneBack(index) {
   document.querySelector("nav").style.display = "block";
   document.querySelectorAll(".singleEventBack")[index].style.display = "none";
   document.querySelector(".nextContain").style.display = "block";
-  // document.querySelectorAll(".registration")[index].style.display = "none";
 }
 
 var selectClose = document.querySelectorAll(".close");

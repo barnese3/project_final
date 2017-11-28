@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         format.html
-        format.json
+        format.json { render :show, status: :created, location: @event }
         format.js
       else
         format.html { render :new }
