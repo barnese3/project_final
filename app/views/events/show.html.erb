@@ -1,69 +1,104 @@
-<p id="notice"><%= notice %></p>
+<!-- <body onload="randombg()"> -->
+  <div id="random" ></div>  
+<!-- </body> -->
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
+<div class="eventShow">
+  <div class="container">
+    <div class="row">
+      <div class="one-half column">
+        <h1><%= @event.name %></h1>
+        <p><%= @event.description %></p>
+        <p><%= @event.start_date.to_date %></p>
+        <p><strong>Category: </strong><%= @event.category %></p>
+      </div>
+      <div id="eventColumn2" class="one-half column">
+        <p class="eventShowStreet"><%= @event.street %></p>
+        <p><%= @event.city %>, <%= @event.state %></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+        <% if user_signed_in? %>
+        <% if @event.start_date.to_date > Date.today %>
+          <%= form_with(model: UserEvent.new, local: true) do |form| %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :event_id, value: @event.id %>
+          <%= form.hidden_field :status, value: "upcoming" %>
+          <div id="submitUpcoming"><%= form.submit "Add to 'My Upcoming Events'" %></div>
+        <% end %>
+        <% end %>
 
-<p>
-  <strong>Category:</strong>
-  <%= @event.category %>
-</p>
+        <% if @event.start_date.to_date < Date.today %>
+          <%= form_with(model: UserEvent.new, local: true) do |form| %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :event_id, value: @event.id %>
+          <%= form.hidden_field :status, value: "past" %>
+          <div id="submitPast"><%= form.submit "Add to 'Events I've Attended'" %></div>
+        <% end %>
+        <% end %>
 
-<p>
-  <strong>Date:</strong>
-  <%= @event.start_date.to_date %>
-  <% if @event.start_date.to_date < Date.today %>
-    <p>past</p>
-  <% end %>
-  <% if @event.start_date.to_date > Date.today %>
-    <p>upcoming</p>
-  <% end %>
-</p>
+        <% if @event.start_date.to_date > Date.today %>
+          <%= form_with(model: UserEvent.new, local: true) do |form| %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :event_id, value: @event.id %>
+          <%= form.hidden_field :status, value: "wishlist" %>
+          <div id="submitWishlist"><%= form.submit "Add to 'My Event Wishlist'" %></div>
+        <% end %>
+        <% end %>
+        <% end %>
 
-<p>
-  <strong>Street:</strong>
-  <%= @event.street %>
-</p>
+      <div class="statusUpdateNotice"></div>
 
-<p>
-  <strong>City:</strong>
-  <%= @event.city %>
-</p>
+      <h4>Invite Your Friends</h4>
+      <%= social_share_button_tag("Who wants to join me for " + @event.name) %>
 
-<p>
-  <strong>State:</strong>
-  <%= @event.state %>
-</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<% if user_signed_in? %>
-  <%= form_with(model: UserEvent.new, local: true) do |form| %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :event_id, value: @event.id %>
-      <%= form.hidden_field :status, value: "upcoming" %>
-      <%= form.submit "Add to 'My Upcoming Events'" %>
-  <% end %>
+<script>
 
-<% if @event.start_date.to_date < Date.today %>
-  <%= form_with(model: UserEvent.new, local: true) do |form| %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :event_id, value: @event.id %>
-      <%= form.hidden_field :status, value: "past" %>
-      <%= form.submit "Add to 'Events I've Attended" %>
-  <% end %>
-<% end %>
+function randombg(){
+var random= Math.floor(Math.random() * 8) + 0;
+var bigSize = ["url('https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/103123/pexels-photo-103123.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/225203/pexels-photo-225203.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/23380/pexels-photo.jpg?w=1260&h=750&auto=compress&cs=tinysrgb')",
+               "url('https://images.pexels.com/photos/238622/pexels-photo-238622.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')"];
+document.getElementById("random").style.backgroundImage=bigSize[random];
+}
 
-  <%= form_with(model: UserEvent.new, local: true) do |form| %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :event_id, value: @event.id %>
-      <%= form.hidden_field :status, value: "wishlist" %>
-      <%= form.submit "Add to 'My Event Wishlist'" %>
-  <% end %>
-<% end %>
+var eventCategory = "<%= @event.category %>";
 
-<%= social_share_button_tag(@event.name) %>
+if (eventCategory.toLowerCase() === "kayaking") {
+  document.getElementById("random").style.backgroundImage= "url('https://images.pexels.com/photos/461595/pexels-photo-461595.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')";
+} else if (eventCategory.toLowerCase() === "sailing") {
+  document.getElementById("random").style.backgroundImage= "url('https://images.pexels.com/photos/358326/pexels-photo-358326.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb')";
+} else if (eventCategory.toLowerCase() === "snowboarding") {
+  document.getElementById("random").style.backgroundImage= "url('https://cdn-snowboarding.transworld.net/blogs.dir/442/files/2017/01/Josh-Dirksen-Oregon-Insight-Tyler-Roemer-05.jpg')";
+} else if (eventCategory.toLowerCase() === "hiking") {
+  document.getElementById("random").style.backgroundImage= "url('https://images.pexels.com/photos/34511/norway-mountain-sky-blue.jpg?w=1260&h=750&auto=compress&cs=tinysrgb')";
+} else {
+  randombg();
+}
+
+if (document.querySelector("#submitWishlist")) {
+  document.querySelector("#submitWishlist").addEventListener("click", function() {
+    document.querySelector(".statusUpdateNotice").innerHTML = "Activity added to your wishlist";
+  })
+}
+
+if (document.querySelector("#submitPast")) {
+  document.querySelector("#submitPast").addEventListener("click", function() {
+    document.querySelector(".statusUpdateNotice").innerHTML = "Activity added to your past activties";
+  })
+}
+
+if (document.querySelector("#submitUpcoming")) {
+  document.querySelector("#submitUpcoming").addEventListener("click", function() {
+    document.querySelector(".statusUpdateNotice").innerHTML = "Activity added to your upcoming activties";
+  })
+}
+
+</script>

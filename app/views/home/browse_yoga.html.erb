@@ -1,0 +1,48 @@
+<div class=".browseContain">
+  <div class='container'>
+    <div class='row'>
+      <div class='one-half column'>
+        <h1 class="browseHeader">Yoga</h1>
+          <div class="browseByCategoryResults">
+            
+          </div>
+      </div>
+          <div class="browseImages">
+            <div class='one-half column'>
+              <img src="https://images.pexels.com/photos/374632/pexels-photo-374632.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/317155/pexels-photo-317155.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/7640/pexels-photo.jpg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/460307/pexels-photo-460307.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/267968/pexels-photo-267968.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/268095/pexels-photo-268095.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/616997/pexels-photo-616997.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/268041/pexels-photo-268041.jpeg?h=350&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/460520/pexels-photo-460520.jpeg?h=350&auto=compress&cs=tinysrgb" />
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+  var todaysDate2 = '<%= Date.today %>..';
+  axios({
+  method: 'get',
+  url: "http://api.amp.active.com/v2/search/?current_page=1&per_page=10&sort=date_asc&topic=yoga&exclude_children=true&api_key=f22xnqt8nbeqk9dutzr86pk9",
+  params: {
+      start_date: todaysDate2
+    }
+}).then(response => {
+  console.log(response.data.results);
+  response.data.results.forEach( row => {
+  var options4 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var date3 = new Date(row.activityStartDate);
+  document.querySelector(".browseByCategoryResults").innerHTML += 
+  "<h6 class='browseName'>" + row.assetName + "</h6>" +
+  "<h6 class='browseDate'>" + date3.toLocaleDateString("en-US", options4) + "</h6>" +
+  "<hr></hr>";
+})
+})
+</script>

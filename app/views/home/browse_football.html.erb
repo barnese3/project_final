@@ -1,0 +1,48 @@
+<div class=".browseContain">
+  <div class='container'>
+    <div class='row'>
+      <div class='one-half column'>
+        <h1 class="browseHeader">Football</h1>
+          <div class="browseByCategoryResults">
+            
+          </div>
+      </div>
+          <div class="browseImages">
+            <div class='one-half column'>
+              <img src="https://images.unsplash.com/photo-1485313260896-6e6edf486858?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1471265004050-b3e8ff9c162e?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.pexels.com/photos/4198/field-sport-ball-america.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/35655/football-american-game-runner.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/262524/pexels-photo-262524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/2182/red-outside-grass-sport.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/159571/american-football-football-canada-canadian-159571.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/159616/american-football-football-football-player-running-159616.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/209822/pexels-photo-209822.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+  var todaysDate2 = '<%= Date.today %>..';
+  axios({
+  method: 'get',
+  url: "http://api.amp.active.com/v2/search/?current_page=1&per_page=10&sort=date_asc&topic=football&exclude_children=true&api_key=f22xnqt8nbeqk9dutzr86pk9",
+  params: {
+      start_date: todaysDate2
+    }
+}).then(response => {
+  console.log(response.data.results);
+  response.data.results.forEach( row => {
+  var options4 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var date3 = new Date(row.activityStartDate);
+  document.querySelector(".browseByCategoryResults").innerHTML += 
+  "<h6 class='browseName'>" + row.assetName + "</h6>" +
+  "<h6 class='browseDate'>" + date3.toLocaleDateString("en-US", options4) + "</h6>" +
+  "<hr></hr>";
+})
+})
+</script>

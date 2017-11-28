@@ -1,3 +1,10 @@
+<style>
+  .logo,
+  footer {
+    display: none;
+  }
+</style>
+
 <%= video_tag "Into_the_Wild.mp4", autoplay: true, loop: true %>
 
 <div class="landingHeader"><h1>Where To?</h1></div>
@@ -67,7 +74,6 @@ function topFunction() {
 
 <div class="continue"><%= link_to "Continue to Site >>", home_path %></div>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 
 var i = 0;
@@ -139,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
   eventInput4.push(i);
   eventInput5.push(i);
   eventInput6.push(i);
+  eventInput7.push(i);
 
   eventSave[i] = document.createElement("FORM");
   eventSave[i].setAttribute("class", "event_form");
@@ -182,6 +189,12 @@ document.addEventListener("DOMContentLoaded", function() {
     eventInput6[i].setAttribute("value", row.place.stateProvinceCode);
     eventSave[i].appendChild(eventInput6[i]);
 
+    eventInput7[i] = document.createElement("INPUT");
+    eventInput7[i].setAttribute("name", "event[category]");
+    eventInput7[i].setAttribute("class", "category");
+    eventInput7[i].setAttribute("value", row.assetTopics[0].topic.topicName);
+    eventSave[i].appendChild(eventInput7[i]);
+
     document.body.appendChild(eventSave[i]);
     eventsArray.push(eventSave[i]);
 
@@ -192,13 +205,14 @@ $.ajax({
   data: $("form").serialize(), 
   success: function(response){
     console.log("event added to database");
-    <% p @event %>
   }
 });
 
     var options2 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var options = { day: 'numeric', month: 'short' };
     var date = new Date(row.activityStartDate);
+
+    document.querySelector(".logo").style.display = "block";
 
     //after the event is saved to the datebase, the DOM is updated with events returned from the search
     document.querySelector(".eventSearchList").innerHTML +=
@@ -209,6 +223,7 @@ $.ajax({
     "<p class='close'>&times;</p>" +
     "<h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options2) + "</p>" + 
+    "<p class='category'><strong>Category: </strong>" + row.assetTopics[0].topic.topicName + "</p>" +
     "<div class='container'>" +
     "<div class='row'>" +
     "<div class='six columns'><p class='description'>" + row.assetDescriptions[0].description + "</p></div>" +

@@ -1,6 +1,26 @@
-<div class="browseContain">
-  <div class="browseByCategoryResults">
-    <h1>Baseball</h1>
+<div class=".browseContain">
+  <div class='container'>
+    <div class='row'>
+      <div class='one-half column'>
+        <h1 class="browseHeader">Baseball</h1>
+          <div class="browseByCategoryResults">
+            
+          </div>
+      </div>
+          <div class="browseImages">
+            <div class='one-half column'>
+              <img src="https://images.pexels.com/photos/257970/pexels-photo-257970.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/163365/softball-pitcher-female-sport-163365.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/209809/pexels-photo-209809.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.unsplash.com/photo-1503486579284-2418f27ccaf7?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1470083748587-df49227c0505?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.pexels.com/photos/163304/softball-batter-girl-batting-163304.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/209975/pexels-photo-209975.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.unsplash.com/photo-1486260713155-8095db2d9954?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.pexels.com/photos/163239/baseball-player-running-sport-163239.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+            </div>
+          </div>
+    </div>
   </div>
 </div>
 
@@ -17,10 +37,12 @@
 }).then(response => {
   console.log(response.data.results);
   response.data.results.forEach( row => {
+  var options4 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var date3 = new Date(row.activityStartDate);
   document.querySelector(".browseByCategoryResults").innerHTML += 
-  "<div>" +
-  "<p>" + row.assetName + "</p>" +
-  "</div>"
+  "<h6 class='browseName'>" + row.assetName + "</h6>" +
+  "<h6 class='browseDate'>" + date3.toLocaleDateString("en-US", options4) + "</h6>" +
+  "<hr></hr>";
 })
 })
 </script>

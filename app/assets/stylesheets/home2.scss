@@ -1,6 +1,7 @@
 .homeFormContain2 {
   width: 100%;
   text-align: center;
+  margin-top: 5%;
 
   .search {
     width: 100%;
@@ -26,8 +27,30 @@
   }
 }
 
+.mainDescriptionText {
+  width: 100%;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 4%;
+
+    p {
+    width: 60%;
+    font-size: 20px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+.mainDescription {
+  background-image: url("http://www.redwoodchristianpark.com/wp-content/uploads/2012/10/cropped-towering-trees.png");
+  background-size: contain;
+  margin: 0 auto 5% auto;
+  width: 100%;
+  text-align: center;
+  height: 100px;
+}
+
 .categoryContainer {
-  cursor: pointer;
   
   img {
     height: 35px;
@@ -36,38 +59,103 @@
   }
 }
 
-.browsemountainbiking,
-.browsesnowboarding {
-  width: 200px;
-}
-
 .browseByCategoryHeader {
   width: 100%;
   text-align: center;
+  margin-bottom: 2%;
 }
 
-.recentEventsContainer {
-  width: 100%;
-  text-align: center;
+.recentEvents {
+
   margin-bottom: 5%;
 
-  .recentEvents {
-    width: 50%;
-    margin: 0 auto;
+  img {
+    width: 250px;
+    height: 150px;
+  }
 
-    .recentEventsDiv {
-      width: 30%;
-      height: 100px;
-      display: inline-block;
-      background-color: #4A7C59;
-      color: white;
-      margin: 1%;
-    }
+  .recentName {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 0px;
+  }
+
+  .recentDate {
+    font-style: italic;
+    font-size: 12px;
+    padding-bottom: 0px;
+  }
+
+  #images {
+    text-align: center;
+    padding-top: 1%;
   }
 }
 
-.recentEventsHeader {
-  width: 100%;
-  text-align: center;
-  font-size: 50px;
+.browseoutdoors,
+.browsekayaking,
+.browserafting,
+.browsesailing,
+.browsehiking,
+.browseclimbing,
+.browsefishing,
+.browsehunting,
+.browsecamping,
+.browsesurfing,
+.browseskiing,
+.browsesnowboarding,
+.browsemountainbiking,
+.browsewalking,
+.browsefitness,
+.browserunning,
+.browsecycling,
+.browseswimming,
+.browsebasketball,
+.browsebaseball,
+.browsesoccer,
+.browsefootball,
+.browsehockey,
+.browselacrosse,
+.browsesoftball,
+.browsedance,
+.browsezumba,
+.browseyoga,
+.browsepilates,
+.browserecreation {
+  cursor: pointer;
+  width: 180px;
+  height: 50px;
+}
+
+.browseoutdoors:hover,
+.browsekayaking:hover,
+.browserafting:hover,
+.browsesailing:hover,
+.browsehiking:hover,
+.browseclimbing:hover,
+.browsefishing:hover,
+.browsehunting:hover,
+.browsecamping:hover,
+.browsesurfing:hover,
+.browseskiing:hover,
+.browsesnowboarding:hover,
+.browsemountainbiking:hover,
+.browsewalking:hover,
+.browsefitness:hover,
+.browserunning:hover,
+.browsecycling:hover,
+.browseswimming:hover,
+.browsebasketball:hover,
+.browsebaseball:hover,
+.browsesoccer:hover,
+.browsefootball:hover,
+.browsehockey:hover,
+.browselacrosse:hover,
+.browsesoftball:hover,
+.browsedance:hover,
+.browsezumba:hover,
+.browseyoga:hover,
+.browsepilates:hover,
+.browserecreation:hover {
+  color: #4A7C59;
 }

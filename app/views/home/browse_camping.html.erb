@@ -1,6 +1,26 @@
-<div class="browseContain">
-  <div class="browseByCategoryResults">
-    <h1>Camping</h1>
+<div class=".browseContain">
+  <div class='container'>
+    <div class='row'>
+      <div class='one-half column'>
+        <h1 class="browseHeader">Camping</h1>
+          <div class="browseByCategoryResults">
+            
+          </div>
+      </div>
+          <div class="browseImages">
+            <div class='one-half column'>
+              <img src="https://images.pexels.com/photos/6714/light-forest-trees-morning.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/587976/pexels-photo-587976.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.pexels.com/photos/14287/pexels-photo-14287.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+              <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1492648272180-61e45a8d98a7?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?auto=format&fit=crop&w=1049&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1445308394109-4ec2920981b1?auto=format&fit=crop&w=1053&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1495685288924-ce05d1036b24?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+              <img src="https://images.unsplash.com/photo-1487011516996-55d2edb84148?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" />
+            </div>
+          </div>
+    </div>
   </div>
 </div>
 
@@ -17,10 +37,12 @@
 }).then(response => {
   console.log(response.data.results);
   response.data.results.forEach( row => {
+  var options4 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var date3 = new Date(row.activityStartDate);
   document.querySelector(".browseByCategoryResults").innerHTML += 
-  "<div>" +
-  "<p>" + row.assetName + "</p>" +
-  "</div>"
+  "<h6 class='browseName'>" + row.assetName + "</h6>" +
+  "<h6 class='browseDate'>" + date3.toLocaleDateString("en-US", options4) + "</h6>" +
+  "<hr></hr>";
 })
 })
 </script>
