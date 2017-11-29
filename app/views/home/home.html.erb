@@ -60,34 +60,6 @@ function topFunction() {
   <h1 class="noMoreResults"></h1>
 </div>
 
-<div class="mainDescriptionText">
-  <p><em>Where To?</em>  is designed for outdoor enthusiasts seeking their next adventure. We are happy to bring you thousands of outdoor events and activities updated daily. Whether you're into camping, hiking, skiing, sports, fitness, or yoga, we have an activity for you...</p>
-</div>
-<div class="mainDescription"></div>
-
-<div class="recentEvents">
-  <div class='container'>
-    <div class='row'>
-      <div class='one-half column'>
-        <div class="recentEventsHeader"><h3>Upcoming Events</h3></div>
-          <div class='recentEventsDiv'>
-
-          </div>
-      </div>    
-      <div id ="images" class='one-half column'>
-      <img src="https://images.pexels.com/photos/108992/pexels-photo-108992.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/40859/kayaking-kayaker-kayak-water-sports-40859.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/176381/pexels-photo-176381.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/172484/pexels-photo-172484.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/67386/pexels-photo-67386.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/235922/pexels-photo-235922.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      <img src="https://images.pexels.com/photos/325521/pexels-photo-325521.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      </div>
-  </div>
-</div>
-</div><!--  end of recent events -->
-
 <div class="browseByCategoryHeader"><h3>Browse By Category</h3></div>
 
 <div class="categoryContainer">
@@ -139,9 +111,38 @@ function topFunction() {
   </div><!--  end of container -->
 </div><!--  end of categoryContainer -->
 
+<div class="mainDescriptionText">
+  <p><em>Where To?</em>  is designed for outdoor enthusiasts seeking their next adventure. We are happy to bring you thousands of outdoor events and activities updated daily. Whether you're into camping, hiking, skiing, sports, fitness, or yoga, we have an activity for you...</p>
+</div>
+<div class="mainDescription"></div>
+
+<div class="recentEvents">
+  <div class='container'>
+    <div class='row'>
+      <div class='one-half column'>
+        <div class="recentEventsHeader"><h3>Upcoming Activities</h3></div>
+          <div class='recentEventsDiv'>
+
+          </div>
+      </div>    
+      <div id ="images" class='one-half column'>
+      <img src="https://images.pexels.com/photos/108992/pexels-photo-108992.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/40859/kayaking-kayaker-kayak-water-sports-40859.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/176381/pexels-photo-176381.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/172484/pexels-photo-172484.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/67386/pexels-photo-67386.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/235922/pexels-photo-235922.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      <img src="https://images.pexels.com/photos/325521/pexels-photo-325521.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+      </div>
+  </div>
+</div>
+</div><!--  end of recent events -->
+
 <script>
 
 var i = 0;
+var j = 0;
 var eventsArray = [];
 var todaysDate = '<%= Date.today %>..';
 var searchDate;
@@ -298,20 +299,11 @@ $.ajax({
 //when you click on an events "More Info", all events are hidden and the selected events "info" is being displayed
 function displayNone() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
-    // document.querySelectorAll(".singleEvent")[i].style.opacity = "0.3";
-    // document.querySelector(".homeFormContain2").style.display = "none";
-    // document.querySelector(".mainDescription").style.display = "none";
-    // document.querySelector(".mainDescriptionText").style.display = "none";
-    // document.querySelector(".recentEvents").style.display = "none";
-    // document.querySelector(".browseByCategoryHeader").style.display = "none";
-    // document.querySelector(".categoryContainer").style.display = "none";
   }
 }
 
 function displayBlock(index) {
   document.querySelectorAll(".singleEventBack")[index].style.display = "block";
-  // document.querySelector(".nextContain").style.display = "none";
-  // document.querySelector("nav").style.display = "none";
 }
 
 var selectInfo = document.querySelectorAll(".moreInfo");
@@ -531,20 +523,11 @@ if (selectInfo[29]) {
 //while the info is being diaplyed, if you select close, all events are being shown again and the info is being hidden
 function displayInline() {
   for (var i = 0; i < document.querySelectorAll(".singleEvent").length; i++){
-    // document.querySelectorAll(".singleEvent")[i].style.opacity = "1";
-    // document.querySelector(".homeFormContain2").style.display = "block";
-    // document.querySelector(".mainDescription").style.display = "block";
-    // document.querySelector(".mainDescriptionText").style.display = "block";
-    // document.querySelector(".recentEvents").style.display = "block";
-    // document.querySelector(".browseByCategoryHeader").style.display = "block";
-    // document.querySelector(".categoryContainer").style.display = "block";
   }
 }
 
 function displayNoneBack(index) {
-  // document.querySelector("nav").style.display = "block";
   document.querySelectorAll(".singleEventBack")[index].style.display = "none";
-  // document.querySelector(".nextContain").style.display = "block";
 }
 
 var selectClose = document.querySelectorAll(".close");
@@ -805,10 +788,97 @@ document.querySelector(".backToTop").style.display = "block";
   response.data.results.forEach( row => {
   var options3 = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   var date2 = new Date(row.activityStartDate);
-  document.querySelector(".recentEventsDiv").innerHTML += 
-  "<p class='recentName'>" + row.assetName + "</p>" +
-  "<p class='recentDate'>" + date2.toLocaleDateString("en-US", options3) + "</p>" +
-  "<hr></hr>";
+
+  var eventSave2 = [];
+  var eventInput2_1 = [];
+  var eventInput2_2 = [];
+  var eventInput2_3 = [];
+  var eventInput2_4 = [];
+  var eventInput2_5 = [];
+  var eventInput2_6 = [];
+  var eventInput2_7 = [];
+
+// variable i is incrementing to create a new form(with new inputs) in the eventSave array on each iteration of the loop
+  j++;
+
+  eventSave2.push(j);
+  eventInput2_1.push(j);
+  eventInput2_2.push(j);
+  eventInput2_3.push(j);
+  eventInput2_4.push(j);
+  eventInput2_5.push(j);
+  eventInput2_6.push(j);
+  eventInput2_7.push(j);
+
+  eventSave2[j] = document.createElement("FORM");
+  eventSave2[j].setAttribute("class", "event_form");
+  eventSave2[j].setAttribute("name", "form");
+  eventSave2[j].setAttribute("action", "/events");
+  eventSave2[j].setAttribute("method", "post");
+
+    eventInput2_1[j] = document.createElement("INPUT");
+    eventInput2_1[j].setAttribute("name", "event[name]");
+    eventInput2_1[j].setAttribute("class", "event_name");
+    eventInput2_1[j].setAttribute("value", row.assetName);
+    eventSave2[j].appendChild(eventInput2_1[j]);
+
+    eventInput2_2[j] = document.createElement("INPUT");
+    eventInput2_2[j].setAttribute("name", "event[description]");
+    eventInput2_2[j].setAttribute("class", "description");
+    eventInput2_2[j].setAttribute("value", row.assetDescriptions[0].description.replace(/(<([^>]+)>)/ig," "));
+    eventSave2[j].appendChild(eventInput2_2[j]);
+
+    eventInput2_3[j] = document.createElement("INPUT");
+    eventInput2_3[j].setAttribute("name", "event[start_date]");
+    eventInput2_3[j].setAttribute("class", "start_date");
+    eventInput2_3[j].setAttribute("value", row.activityStartDate);
+    eventSave2[j].appendChild(eventInput2_3[j]);
+
+    eventInput2_4[j] = document.createElement("INPUT");
+    eventInput2_4[j].setAttribute("name", "event[street]");
+    eventInput2_4[j].setAttribute("class", "street");
+    eventInput2_4[j].setAttribute("value", row.place.addressLine1Txt);
+    eventSave2[j].appendChild(eventInput2_4[j]);
+
+    eventInput2_5[j] = document.createElement("INPUT");
+    eventInput2_5[j].setAttribute("name", "event[city]");
+    eventInput2_5[j].setAttribute("class", "city");
+    eventInput2_5[j].setAttribute("value", row.place.cityName);
+    eventSave2[j].appendChild(eventInput2_5[j]);
+
+    eventInput2_6[j] = document.createElement("INPUT");
+    eventInput2_6[j].setAttribute("name", "event[state]");
+    eventInput2_6[j].setAttribute("class", "state");
+    eventInput2_6[j].setAttribute("value", row.place.stateProvinceCode);
+    eventSave2[j].appendChild(eventInput2_6[j]);
+
+    eventInput2_7[j] = document.createElement("INPUT");
+    eventInput2_7[j].setAttribute("name", "event[category]");
+    eventInput2_7[j].setAttribute("class", "category");
+    eventInput2_7[j].setAttribute("value", document.querySelector(".searchCategory").value);
+    eventSave2[j].appendChild(eventInput2_7[j]);
+
+    document.body.appendChild(eventSave2[j]);
+
+
+// after a form is created, it is submitted to the database using ajax
+$.ajax({
+  'async': false,
+  type: 'POST',
+  url: '/events',
+  data: $("form").serialize(), 
+  dataType: "json",
+  success: function(response){
+    console.log("event added to database");
+      document.querySelector(".recentEventsDiv").innerHTML += 
+      "<p class='recentName'><a target='_blank' href='/events/" + response.id + "'>" + row.assetName + "</a></p>" +
+      "<p class='recentDate'>" + date2.toLocaleDateString("en-US", options3) + "</p>" +
+      "<hr></hr>";
+
+  } //end of success: function(response)
+}); //end of ajax post
+
+
 })
 })
 

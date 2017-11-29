@@ -51,6 +51,8 @@
 }
 
 .categoryContainer {
+
+  padding-bottom: 5%;
   
   img {
     height: 35px;
@@ -63,6 +65,11 @@
   width: 100%;
   text-align: center;
   margin-bottom: 2%;
+  padding-top: 3%;
+}
+
+.recentEventsHeader {
+  font-size: 50px;
 }
 
 .recentEvents {

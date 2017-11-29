@@ -1,63 +1,91 @@
-<h2>Sign up</h2>
+<form class="new_user" id="new_user" enctype="multipart/form-data" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="288+dNc1B3RxJTuJ6gJDvCVDSRn6xYLbjYD/g2RyjBlVwJQ1sRTGBuaO1i0HOM6MAY+Lqdn9C8XwZejI8NJM4g==">
+  
+<div class="formcontainers">
+  <div class="formfields">
+    <input name="user[first_name]" class="texter" placeholder="First Name" required />
+      <label class="formlabel">First Name</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="formfields">
+    <input name="user[last_name]" class="texter" placeholder="Last Name" required />
+      <label class="formlabel">Last Name</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true %>
+  <div class="formfields">
+    <input name="user[email]" class="texter" placeholder="Email" required />
+      <label class="formlabel">Email</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <br>
+    <input id="password" name="user[password]" class="texter" placeholder="Password- must be at least 6 characters" required />
+      <label class="formlabel">Password</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input id="password2" name="user[password_confirmation]" class="texter", placeholder="Password Confirmation" required />
+      <label class="formlabel">Password Confirm</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input name="user[facebook]" class="texter" placeholder="Facebook URL" required />
+      <label class="formlabel">Facebook</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input name="user[twitter]" class="texter" placeholder="Twitter URL" required />
+      <label class="formlabel">Twitter</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input name="user[instagram]" class="texter", placeholder="Instagram URL" required />
+      <label class="formlabel">Instagram</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <textarea id="about" name="user[about]" class="texter", placeholder="About"></textarea>
   </div>
 
   <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+    <label class="photoLabel">Upload Profile Picture</label>
+    <input type="file" name="user[image]" class="profilePhoto">
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
+<div class="formfields">
+  <div class="mountainbutton2">
+    <p><input type="submit" name="commit" value="Sign up" data-disable-with="Sign up"></p>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+</form>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :facebook %><br />
-    <%= f.text_field :facebook %>
-  </div>
 
-  <div class="field">
-    <%= f.label :twitter %><br />
-    <%= f.text_field :twitter %>
-  </div>
 
-  <div class="field">
-    <%= f.label :instagram %><br />
-    <%= f.text_field :instagram %>
-  </div>
-
-  <div class="field">
-    <%= f.label :about %><br />
-    <%= f.text_area :about %>
-  </div>
-
-  <div class="field">
-    <%= f.file_field :image %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
 
 <%= render "users/shared/links" %>
