@@ -5,6 +5,15 @@ function topFunction() {
 }
 </script>
 
+<style>
+  @media (max-width: 800px) {
+    
+    footer {
+      width: 110%;
+    }
+  }
+</style>
+
 <!-- form for user to search for events by city, state, category, and date -->
 <div class="homeFormContain2">
 <form>
@@ -50,7 +59,9 @@ function topFunction() {
 </form>
 </div>
 
-<div class="eventSearchList"></div>
+<div class="eventSearchList">
+  <div class='vl'></div>
+</div>
 <div class="nextContain">
   <h1 class="next"></h1>
   <h1 class="next2"></h1>
@@ -80,13 +91,6 @@ function topFunction() {
         <div class="browsesurfing"><img src="https://image.flaticon.com/icons/svg/625/625377.svg" />surfing</div>
       </div>
       <div class="two columns">
-        <div class="browseskiing"><img src="https://image.flaticon.com/icons/svg/625/625361.svg" />skiing</div>
-        <div class="browsesnowboarding"><img src="https://image.flaticon.com/icons/svg/625/625362.svg" />snowboarding</div>
-        <div class="browsemountainbiking"><img src="https://image.flaticon.com/icons/svg/625/625387.svg" />mountain biking</div>
-        <div class="browsewalking"><img src="https://image.flaticon.com/icons/svg/333/333656.svg" />walking</div>
-        <div class="browsefitness"><img src="https://image.flaticon.com/icons/svg/489/489860.svg" />fitness</div>
-      </div>
-      <div class="two columns">
         <div class="browserunning"><img src="https://image.flaticon.com/icons/svg/606/606712.svg" />running</div>
         <div class="browsecycling"><img src="https://image.flaticon.com/icons/svg/123/123505.svg" />cycling</div>
         <div class="browseswimming"><img src="https://image.flaticon.com/icons/svg/186/186192.svg" />swimming</div>
@@ -106,6 +110,13 @@ function topFunction() {
         <div class="browseyoga"><img src="https://image.flaticon.com/icons/svg/215/215701.svg" />yoga</div>
         <div class="browsepilates"><img src="https://image.flaticon.com/icons/svg/186/186855.svg" />pilates</div>
         <div class="browserecreation"><img src="https://image.flaticon.com/icons/svg/140/140677.svg" />recreation</div>
+      </div>
+      <div class="two columns">
+        <div class="browseskiing"><img src="https://image.flaticon.com/icons/svg/625/625361.svg" />skiing</div>
+        <div class="browsesnowboarding"><img src="https://image.flaticon.com/icons/svg/625/625362.svg" />snowboarding</div>
+        <div class="browsemountainbiking"><img src="https://image.flaticon.com/icons/svg/625/625387.svg" />mountain biking</div>
+        <div class="browsewalking"><img src="https://image.flaticon.com/icons/svg/333/333656.svg" />walking</div>
+        <div class="browsefitness"><img src="https://image.flaticon.com/icons/svg/489/489860.svg" />fitness</div>
       </div>
     </div><!--  end of row -->
   </div><!--  end of container -->
@@ -283,7 +294,6 @@ $.ajax({
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
     "<p class='moreInfo'>More Information</p></div>" +
-    "<div class='vl'></div>" +
     "<div class='singleEventBack' style='display:none'>" +
     "<p class='close'>&times;</p>" +
     "<h1 class='name'>" + row.assetName + "</h1>" +
@@ -781,7 +791,8 @@ document.querySelector(".backToTop").style.display = "block";
   method: 'get',
   url: "http://api.amp.active.com/v2/search/?current_page=1&per_page=9&sort=date_asc&exclude_children=true&api_key=f22xnqt8nbeqk9dutzr86pk9",
   params: {
-      start_date: todaysDate
+      start_date: todaysDate,
+      exists: "assetDescriptions"
     }
 }).then(response => {
   console.log(response.data.results);

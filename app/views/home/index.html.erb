@@ -3,12 +3,12 @@
   footer {
     display: none;
   }
+  body {
+    padding-bottom: 0;
+  }
 </style>
 
 <%= video_tag "Into_the_Wild.mp4", autoplay: true, loop: true %>
-
-<div class="landingHeader"><h1>Where To?</h1></div>
-<div class="landingHeaderText"><h3>Your guide to the great outdoors and living an active lifestyle</h3></div>
 
 <script>
 function topFunction() {
@@ -29,6 +29,8 @@ function topFunction() {
 
 <!-- form for user to search for events by city, state, category, and date -->
 <div class="homeFormContain">
+<div class="landingHeader"><h1>Where To?</h1></div>
+<div class="landingHeaderText"><h3>Your guide to the great outdoors and living an active lifestyle</h3></div>
 <form>
   <input name="city" type="text" class="searchCity" placeholder="City" />
   <input name="state" type="text" class="searchState" placeholder="State" />
@@ -70,9 +72,8 @@ function topFunction() {
    <input type="submit" value="Search" id="submit" />
   </div>
 </form>
-</div>
-
 <div class="continue"><%= link_to "Continue to Site >>", home_path %></div>
+</div>
 
 <script>
 

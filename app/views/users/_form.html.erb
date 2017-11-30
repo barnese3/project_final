@@ -1,52 +1,60 @@
 <%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  
+<div class="formcontainers">
+  <div class="formfields">
+    <input name="user[first_name]" class="texter" value="<%= current_user.first_name %>" placeholder="First Name" required />
+      <label class="formlabel">First Name</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
 
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="formfields">
+    <input name="user[last_name]" class="texter" value="<%= current_user.last_name %>" placeholder="Last Name" required />
+      <label class="formlabel">Last Name</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, id: :user_first_name %>
+  <div class="formfields">
+    <input name="user[facebook]" class="texter" placeholder="Facebook URL" value="<%= current_user.facebook %>" required />
+      <label class="formlabel">Facebook</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input name="user[twitter]" class="texter" placeholder="Twitter URL" value="<%= current_user.twitter %>" required />
+      <label class="formlabel">Twitter</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <input name="user[instagram]" class="texter", placeholder="Instagram URL" value="<%= current_user.instagram %>" required />
+      <label class="formlabel">Instagram</label>
+      <span class="top-move"></span>
+      <span class="bottom-move"></span>
+      <span class="side-move"></span>
+  </div>
+
+  <div class="formfields">
+    <textarea id="about" name="user[about]" class="texter" placeholder="About"><%= current_user.about %></textarea>
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, id: :user_last_name %>
+    <label class="photoLabel">Upload Profile Picture</label>
+    <input type="file" name="user[image]" class="profilePhoto">
   </div>
 
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.text_field :image, id: :user_image %>
+<div class="formfields">
+  <div class="mountainbutton3">
+    <p><input type="submit" name="commit" value="Save" data-disable-with="Sign up"></p>
   </div>
+</div>
 
-  <div class="field">
-    <%= form.label :facebook %>
-    <%= form.text_field :facebook, id: :user_facebook %>
-  </div>
-
-  <div class="field">
-    <%= form.label :twitter %>
-    <%= form.text_field :twitter, id: :user_twitter %>
-  </div>
-
-  <div class="field">
-    <%= form.label :instagram %>
-    <%= form.text_field :instagram, id: :user_instagram %>
-  </div>
-
-  <div class="field">
-    <%= form.label :about %>
-    <%= form.text_area :about, id: :user_about %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
+</div>

@@ -1,3 +1,7 @@
+<div id="signIn" class="container-text">
+    Sign Up
+</div>
+
 <form class="new_user" id="new_user" enctype="multipart/form-data" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="288+dNc1B3RxJTuJ6gJDvCVDSRn6xYLbjYD/g2RyjBlVwJQ1sRTGBuaO1i0HOM6MAY+Lqdn9C8XwZejI8NJM4g==">
   
 <div class="formcontainers">
@@ -27,7 +31,7 @@
 
   <div class="formfields">
     <br>
-    <input id="password" name="user[password]" class="texter" placeholder="Password- must be at least 6 characters" required />
+    <input id="password" name="user[password]" class="texter" autocomplete="off" placeholder="Password- must be at least 6 characters" required />
       <label class="formlabel">Password</label>
       <span class="top-move"></span>
       <span class="bottom-move"></span>
@@ -35,7 +39,7 @@
   </div>
 
   <div class="formfields">
-    <input id="password2" name="user[password_confirmation]" class="texter", placeholder="Password Confirmation" required />
+    <input id="password2" name="user[password_confirmation]" class="texter" autocomplete="off" placeholder="Password Confirmation" required />
       <label class="formlabel">Password Confirm</label>
       <span class="top-move"></span>
       <span class="bottom-move"></span>
@@ -83,9 +87,3 @@
 
 </form>
 </div>
-
-
-
-
-
-<%= render "users/shared/links" %>

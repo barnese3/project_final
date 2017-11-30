@@ -12,11 +12,11 @@
   <body class="<%= @class %>">
   	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <div class="navContain">
     <div class="logo">
-      <img src="https://image.flaticon.com/icons/svg/284/284471.svg" />
-      <h1><a href="/">Where To?</a></h1>
+      <img src="https://image.flaticon.com/icons/svg/226/226676.svg" />
+      <h1><a href="/">W</a></h1>
     </div>
+    <div class="navContain">
     <nav>
       <ul>
         <li><%= link_to "Home", home_path %></li>
@@ -37,16 +37,16 @@
       </div>
     <% end %>
     <%= yield %>
+    <footer>
+      © 2017 WhereTo.com
+    </footer>
   </body>
-<footer>
-  © 2017 WhereTo.com
-</footer>
 </html>
 
 <script>
 
 function userOptions() {
-    var userIcon = document.querySelector(".userAccountOptions");
+  var userIcon = document.querySelector(".userAccountOptions");
     if (userIcon.style.opacity === "0") {
         userIcon.style.opacity = "1";
     } else {

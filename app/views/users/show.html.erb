@@ -5,13 +5,12 @@
   </div>
 </div>
 
-
 <div class='container'>
-  <div class='row'>
-    <div class='six columns'>
+  <div id="userContainer" class='row'>
+    <div class='one-half column'>
       <%= image_tag(@user.image) if @user.image? %>
     </div>
-    <div class='six columns' id="column2">
+    <div class='one-half column' id="column2">
       <p><%= @user.first_name %> <%= @user.last_name %></p>
       <p><%= @user.about %></p>
       <p>
@@ -25,7 +24,7 @@
   <div class="row">
     <div class="one-third column">
       <p>
-        <strong>Upcoming Events</strong>
+        <strong>Upcoming Activities</strong>
           <% @user.user_events.each do |userevent| %>
             <% if userevent.event.start_date.to_date < Date.today && userevent.status == "upcoming" %>
               <% userevent.status = 1 %>
@@ -39,7 +38,7 @@
     </div>
     <div class="one-third column">
       <p>
-        <strong>Past Events</strong>
+        <strong>Past Activities</strong>
           <% pastEvents = Array.new %>
             <% @user.user_events.each do |userevent| %>
               <% if userevent.status == "past" %>
@@ -51,7 +50,7 @@
     </div>
     <div class="one-third column">
       <p>
-        <strong>Wishlist Events</strong>
+        <strong>Wishlist Activities</strong>
           <% @user.user_events.each do |userevent| %>
             <% if userevent.status == "wishlist" %>
               <p><%= link_to userevent.event.name, userevent.event %></p>
@@ -63,8 +62,6 @@
   </div><!--  end of row -->
 </div> <!-- end of container -->
 
-
-
 <% if current_user %>
   <% if @user.id == current_user.id %>
     <p><%= link_to 'Edit My Account', edit_user_path(@user) %></p>
@@ -75,7 +72,7 @@
 <script>
   var userevents = <%= pastEvents.length %>;
   var eventbar = document.querySelector(".eventBar");
-  document.querySelector(".eventBarText").innerHTML = "<%= @user.first_name %>" + " has attended " + userevents + " events";
+  document.querySelector(".eventBarText").innerHTML = "<%= @user.first_name %>" + " has attended " + userevents + " activities";
   if (userevents == 0) {
     eventbar.style.width = "0%";
   }

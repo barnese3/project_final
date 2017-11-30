@@ -15,7 +15,7 @@
 
 
   <div class="formfields">
-    <input id="password3" class="texter" name="user[password]" placeholder="Password" required />
+    <input autocomplete="off" id="password3" class="texter" name="user[password]" placeholder="Password" required />
     <label class="formlabel">Password</label>
     <span class="top-move"></span>
     <span class="bottom-move"></span>
@@ -24,11 +24,9 @@
 
 <div class="formfields">
   <div class="mountainbutton">
-    <p><input type="submit" name="commit" value="Log in" data-disable-with="Log in"></p>
+    <p><input type="submit" name="commit" value="Sign In" data-disable-with="Log in"></p>
   </div>
 </div>
 
 </form>
 </div>
-
-<%= render "users/shared/links" %>

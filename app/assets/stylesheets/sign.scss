@@ -14,21 +14,22 @@
   color:  #FFFFFF;
   padding-top: 20px;
   font-size: 100px;
-  font-family: 'Raleway', serif;
+  font-family: 'Karma', serif;
   font-weight: 900;
   animation: filling 3s ease forwards;
-}
-
-.signContain {
-  width: 100%;
   text-align: center;
-
-  #signIn {
-    width: 50%;
-    margin: 0 auto;
-    text-align: left;
-  }
 }
+
+// .signContain {
+//   width: 100%;
+//   text-align: center;
+
+//   #signIn {
+//     width: 50%;
+//     margin: 0 auto;
+//     text-align: left;
+//   }
+// }
 
 .formcontainers {
   position: relative;
@@ -183,18 +184,13 @@
   p {
     position: relative;
     top: 30px;
-    font-weight: 900;
+    font-weight: bold;
 
     input {
       border: none;
       font-size: 30px;
-      margin-left: 4%;
     }
   }
-}
-
-.profilePhoto {
-  margin-left: 6%;
 }
 
 .mountainbutton2 {
@@ -229,6 +225,42 @@
   }
 }
 
+.mountainbutton3 {
+  transition: .8s;
+  height: 300px;
+  width: 50%;
+  background: linear-gradient(#826A54, tan);
+  cursor: pointer;
+  clip-path: polygon(0% 100%, 14px 70%, 54px 80%, 100px 71%, 123px 74%, 140px 74%, 190px 100%);
+  transform: scale(.8);
+  border-bottom: 9px solid #80A88D;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: -45%;
+
+  &:hover {
+    clip-path: polygon(0% 100%, 14px 90%, 54px 70%, 100px 81%, 123px 74%, 140px 67%, 190px 100%);
+    color: white;
+  }
+
+  p {
+    position: relative;
+    top: 37px;
+    font-weight: 900;
+
+    input {
+      border: none;
+      font-size: 30px;
+      margin-left: 10%;
+    }
+  }
+}
+
+.profilePhoto {
+  margin-left: 6%;
+}
+
 .photoLabel {
   font-weight: normal;
 }
@@ -249,4 +281,9 @@ input#password2 {
 
 input#password3 {
     -webkit-text-security: disc;
+}
+
+.editHeader {
+  width: 100%;
+  text-align: center;
 }

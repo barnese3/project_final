@@ -40,3 +40,9 @@
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
+
+@media (max-width: 950px) {
+  #random {
+    background-attachment: initial;
+  }
+}
