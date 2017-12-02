@@ -53,8 +53,8 @@
         <strong>Wishlist Activities</strong>
           <% @user.user_events.each do |userevent| %>
             <% if userevent.status == "wishlist" %>
-              <p><%= link_to userevent.event.name, userevent.event %></p>
-              <p><%= link_to "Remove From Wishlist", userevent, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true %></p>
+              <p class="wish"><%= link_to userevent.event.name, userevent.event %></p>
+              <p class="removeWish"><%= link_to "Remove From Wishlist", userevent, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true %></p>
             <% end %>
           <% end %>
       </p>
@@ -64,8 +64,8 @@
 
 <% if current_user %>
   <% if @user.id == current_user.id %>
-    <p><%= link_to 'Edit My Account', edit_user_path(@user) %></p>
-    <p><%= link_to 'Delete My Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <p class="userEdit"><%= link_to 'Edit My Account', edit_user_path(@user) %></p>
+    <p class="userEdit"><%= link_to 'Delete My Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %></p>
   <% end %>
 <% end %>
 

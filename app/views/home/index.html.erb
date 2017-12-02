@@ -24,6 +24,7 @@ function topFunction() {
   <h1 class="next3"></h1>
   <h1 class="next4"></h1>
   <button class="backToTop" onclick="topFunction()">Back to Top</button>
+  <button class="anotherSearch"><%= link_to "Search Again", root_path %></button>
   <h1 class="noMoreResults"></h1>
 </div>
 
@@ -88,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function() {
     event.preventDefault();
     searchDate = document.querySelector(".searchDate").value + "..";
     eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 1, document.querySelector(".searchCategory").value, searchDate);
-    document.querySelector(".next").innerHTML = "Load More";
   })
   function eventSearch (city, state, current_page, topic, start_date) {
   if (searchDate.length == 2) {
@@ -112,15 +112,17 @@ document.addEventListener("DOMContentLoaded", function() {
       api_key: "f22xnqt8nbeqk9dutzr86pk9"
     }
 }).then(response => {
+  if (response.data.results.length == 0) {
+    document.querySelector(".noMoreResults").innerHTML = "End of Results";
+  } else {
+  document.querySelector(".next").innerHTML = "Load More";
   document.querySelector("video").style.display = "none";
   document.querySelector(".landingHeader").style.display = "none";
   document.querySelector(".landingHeaderText").style.display = "none";
   document.querySelector(".homeFormContain").style.display = "none";
   document.querySelector(".continue").style.display = "none";
+  document.querySelector(".noMoreResults").innerHTML = "";
   console.log(response.data.results);
-  if (response.data.results.length == 0) {
-    document.querySelector(".noMoreResults").innerHTML = "End of Results";
-  } else {
   response.data.results.forEach( row => {
 
 // for each row, a new event form is created along with its inputs/values
@@ -222,7 +224,6 @@ $.ajax({
     "<div class='singleEvent'><h1 class='name'>" + row.assetName + "</h1>" +
     "<p class='date'>" + date.toLocaleDateString("en-US", options) + "</p>" + 
     "<p class='moreInfo'>More Information</p></div>" +
-    "<div class='vl'></div>" +
     "<div class='singleEventBack' style='display:none'>" +
     "<p class='close'>&times;</p>" +
     "<h1 class='name'>" + row.assetName + "</h1>" +
@@ -231,7 +232,7 @@ $.ajax({
     "<p class='street'>" + row.place.addressLine1Txt + "</p>" + " " +
     "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></p>" + 
     "<p class='description'>" + row.assetDescriptions[0].description.replace(/(<([^>]+)>)/ig," ").slice(0, 100) + "......</p>" +
-    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Event Page</a></p>" +
+    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Activity Page</a></p>" +
     "</div>";
 })
 
@@ -716,6 +717,7 @@ document.querySelector(".next4").innerHTML = "Load More";
 document.querySelector(".next4").addEventListener("click", function () {
 document.querySelector(".next4").style.display = "none";
 document.querySelector(".backToTop").style.display = "block";
+document.querySelector(".anotherSearch").style.display = "block";
   eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 5, document.querySelector(".searchCategory").value, searchDate);
 });
 

@@ -48,13 +48,14 @@
 
 	.userIndex {
 		position: relative;
-		height: 300px;
-		width: 400px;
+		height: 250px;
+		width: 350px;
 		display: inline-block;
+		margin: 1%;
 
 		.userIndexImgOverlay {
-			height: 300px;
-			width: 400px;
+			height: 250px;
+			width: 350px;
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -69,8 +70,8 @@
 
 		.userIndexImg,
 		.userIndexImg img {
-			height: 300px;
-			width: 400px;
+			height: 250px;
+			width: 350px;
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -87,7 +88,7 @@
 
 		.userIndexText a {
 			text-decoration: none;
-			color: #C8D5B9;
+			color: white;
 			font-size: 40px;
 		}
 
@@ -105,4 +106,25 @@
 
 #userContainer {
 	margin-bottom: 10%;
+}
+
+.removeWish a {
+	font-size: 12px;
+	text-decoration: none;
+	font-style: italic;
+}
+
+.wish {
+	padding-bottom: 0;
+	margin-bottom: 0;
+	margin-top: 25px;
+}
+
+.userEdit {
+	padding: 0;
+	margin: 0;
+
+	a {
+		text-decoration: none;
+	}
 }

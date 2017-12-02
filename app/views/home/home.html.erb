@@ -59,9 +59,8 @@ function topFunction() {
 </form>
 </div>
 
-<div class="eventSearchList">
-  <div class='vl'></div>
-</div>
+<div class="eventSearchList"></div>
+
 <div class="nextContain">
   <h1 class="next"></h1>
   <h1 class="next2"></h1>
@@ -164,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function() {
     event.preventDefault();
     searchDate = document.querySelector(".searchDate").value + "..";
     eventSearch(document.querySelector(".searchCity").value, document.querySelector(".searchState").value, 1, document.querySelector(".searchCategory").value, searchDate);
-    document.querySelector(".next").innerHTML = "Load More";
   })
   function eventSearch (city, state, current_page, topic, start_date) {
   if (searchDate.length == 2) {
@@ -192,6 +190,8 @@ document.addEventListener("DOMContentLoaded", function() {
   if (response.data.results.length == 0) {
     document.querySelector(".noMoreResults").innerHTML = "End of Results, Try Another Search";
   } else {
+  document.querySelector(".next").innerHTML = "Load More";
+  document.querySelector(".noMoreResults").innerHTML = "";
   response.data.results.forEach( row => {
 
 // for each row, a new event form is created along with its inputs/values
@@ -302,7 +302,7 @@ $.ajax({
     "<p class='street'>" + row.place.addressLine1Txt + "</p>" + " " +
     "<p class='city'>" + row.place.cityName + ", <span class='state'>" + row.place.stateProvinceCode + "</span></p>" + 
     "<p class='description'>" + row.assetDescriptions[0].description.replace(/(<([^>]+)>)/ig," ").slice(0, 100) + "......</p>" +
-    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Event Page</a></p>" +
+    "<p class='eventLink'><a target= '_blank' href='/events/" + arrayIDS.slice(-1) + "''>Go To Activity Page</a></p>" +
     "</div>";
 })
 
@@ -789,7 +789,7 @@ document.querySelector(".backToTop").style.display = "block";
 //recent events on home page
   axios({
   method: 'get',
-  url: "http://api.amp.active.com/v2/search/?current_page=1&per_page=9&sort=date_asc&exclude_children=true&api_key=f22xnqt8nbeqk9dutzr86pk9",
+  url: "http://api.amp.active.com/v2/search/?current_page=1&per_page=9&sort=date_asc&topic=outdoors&exclude_children=true&api_key=f22xnqt8nbeqk9dutzr86pk9",
   params: {
       start_date: todaysDate,
       exists: "assetDescriptions"

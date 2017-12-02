@@ -6,7 +6,7 @@
       <div class="one-half column">
         <h1><%= @event.name %></h1>
         <p><%= @event.description %></p>
-        <p><%= @event.start_date.to_date %></p>
+        <strong><p class="eventDate">@event.date.to_date</p></strong>
         <% if @event.category.length > 0 %>
           <p><strong>Category: </strong><%= @event.category %></p>
         <% end %>
@@ -16,12 +16,12 @@
         <p><%= @event.city %>, <%= @event.state %></p>
 
         <% if user_signed_in? %>
-        <% if @event.start_date.to_date > Date.today %>
+        <% if @event.start_date.to_date >= Date.today %>
           <%= form_with(model: UserEvent.new, local: true) do |form| %>
           <%= form.hidden_field :user_id, value: current_user.id %>
           <%= form.hidden_field :event_id, value: @event.id %>
           <%= form.hidden_field :status, value: "upcoming" %>
-          <div id="submitUpcoming"><%= form.submit "Add to 'My Upcoming Events'" %></div>
+          <div id="submitUpcoming"><%= form.submit "Add to 'My Upcoming Activities'" %></div>
         <% end %>
         <% end %>
 
@@ -30,16 +30,16 @@
           <%= form.hidden_field :user_id, value: current_user.id %>
           <%= form.hidden_field :event_id, value: @event.id %>
           <%= form.hidden_field :status, value: "past" %>
-          <div id="submitPast"><%= form.submit "Add to 'Events I've Attended'" %></div>
+          <div id="submitPast"><%= form.submit "Add to 'Activities I've Attended'" %></div>
         <% end %>
         <% end %>
 
-        <% if @event.start_date.to_date > Date.today %>
+        <% if @event.start_date.to_date >= Date.today %>
           <%= form_with(model: UserEvent.new, local: true) do |form| %>
           <%= form.hidden_field :user_id, value: current_user.id %>
           <%= form.hidden_field :event_id, value: @event.id %>
           <%= form.hidden_field :status, value: "wishlist" %>
-          <div id="submitWishlist"><%= form.submit "Add to 'My Event Wishlist'" %></div>
+          <div id="submitWishlist"><%= form.submit "Add to 'My Activity Wishlist'" %></div>
         <% end %>
         <% end %>
         <% end %>
@@ -55,6 +55,10 @@
 </div>
 
 <script>
+
+var optionsEvent = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var dateEvent = new Date(<% @event.start_date %>);
+document.querySelector(".eventDate").innerHTML = dateEvent.toLocaleDateString("en-US", optionsEvent);
 
 function randombg(){
 var random= Math.floor(Math.random() * 8) + 0;
